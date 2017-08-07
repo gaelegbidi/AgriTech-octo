@@ -1,0 +1,9 @@
+ma\octo\agritech\controllers\cors\SimpleCORSFilter.class
+ma\octo\agritech\Product.class
+ma\octo\agritech\controllers\UserApiController.class
+ma\octo\agritech\repositories\UserRepository.class
+ma\octo\agritech\Application.class
+ma\octo\agritech\domains\User.class
+ma\octo\agritech\domains\UserCredentials.class
+ma\octo\agritech\MainController.class
+ma\octo\agritech\services\DatabaseLoader.class
