@@ -2,3 +2,7 @@
 target
 node_modules
 build
+.settings
+.project
+.classpath
+yarn.lock

@@ -1,7 +1,5 @@
 package ma.octo.agritech.domains;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 public class UserCredentials {
     private String username;
     private String password;

@@ -1,0 +1,28 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:h2:file:~/agriTech
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  data:
+    rest:
+      base-path: /api
+  thymeleaf:
+    prefix: classpath:/templates
+flyway:
+  locations: db/migration/{vendor}
+  
+---
+spring:
+  profiles: recette
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/agriTech
+    username: root
+    password: mypassword
+

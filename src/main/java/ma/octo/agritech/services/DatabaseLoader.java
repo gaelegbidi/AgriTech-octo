@@ -1,10 +1,11 @@
 package ma.octo.agritech.services;
 
-import ma.octo.agritech.domains.User;
-import ma.octo.agritech.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import ma.octo.agritech.domains.User;
+import ma.octo.agritech.repositories.UserRepository;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner
