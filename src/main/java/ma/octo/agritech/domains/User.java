@@ -1,5 +1,7 @@
 package ma.octo.agritech.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.xml.internal.ws.developer.Serialization;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     private String phone;
     private String address;

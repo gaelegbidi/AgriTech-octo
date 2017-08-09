@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {apiRequest} from "../../../index";
+import {apiRequest} from "../../index";
 import {Router} from 'react-router-dom'
 
 class EditProfile extends Component {
@@ -7,8 +7,29 @@ class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user : props.user
-        };
+
+                username: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                phone: '',
+                address: '',
+                city: '',
+                country: '',
+                function: '',
+                society: '',
+                roles: '' ,
+
+                    };
+        console.log(props)
+        apiRequest.get("/users/"+props.match.params.id).then((response) => {
+            console.log(response.data)
+            this.setState(response.data);
+
+        })
+
+
     }
 
     onChange = (e) => {
@@ -20,7 +41,7 @@ class EditProfile extends Component {
     editUserProfile = async (e) => {
         e.preventDefault();
         apiRequest.headers = {};
-        apiRequest.put('/users/'+ this.props.user.id ,this.state)
+        apiRequest.put('/users/'+ this.state.id ,this.state)
             .then((response) => {
             console.log(response.data)
                 setTimeout(()=>{
@@ -82,17 +103,17 @@ class EditProfile extends Component {
                            onChange={e => this.onChange(e)}
                            value={this.state.email}/>
                   </div>
-                  <div className="input-group mb-3">
-                    <span className="input-group-addon"><i className="icon-lock"></i></span>
-                    <input type="password" className="form-control" placeholder="Password"
-                    name="password"
-                           onChange={e => this.onChange(e)}
-                           value={this.state.password}/>
-                  </div>
-                  <div className="input-group mb-4">
-                    <span className="input-group-addon"><i className="icon-lock"></i></span>
-                    <input type="password" className="form-control" placeholder="Repeat password"/>
-                  </div>
+                  {/*<div className="input-group mb-3">*/}
+                    {/*<span className="input-group-addon"><i className="icon-lock"></i></span>*/}
+                    {/*<input type="password" className="form-control" placeholder="Password"*/}
+                    {/*name="password"*/}
+                           {/*onChange={e => this.onChange(e)}*/}
+                           {/*value={this.state.password}/>*/}
+                  {/*</div>*/}
+                  {/*<div className="input-group mb-4">*/}
+                    {/*<span className="input-group-addon"><i className="icon-lock"></i></span>*/}
+                    {/*<input type="password" className="form-control" placeholder="Repeat password"/>*/}
+                  {/*</div>*/}
                     <div className="input-group mb-3">
                         <span className="input-group-addon"><i className="icon-user"></i></span>
                         <input type="text" className="form-control" placeholder="Phone"
@@ -146,7 +167,7 @@ class EditProfile extends Component {
                         </select>
                     </div>
                   <button type="button" className="btn btn-block btn-success"
-                          onClick={this.editUserProfile}>Create Account</button>
+                          onClick={this.editUserProfile}>Edit Profile</button>
                 </div>
                 {/*<div className="card-footer p-4">*/}
                   {/*<div className="row">*/}
@@ -169,4 +190,4 @@ class EditProfile extends Component {
         }
       }
 
-export default Register;
+export default EditProfile;

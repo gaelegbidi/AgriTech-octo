@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import ma.octo.agritech.domains.User;
 import ma.octo.agritech.domains.UserCredentials;
+import ma.octo.agritech.domains.UserStats;
 import ma.octo.agritech.repositories.UserRepository;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -66,6 +67,24 @@ public class UserApiController {
         return new ResponseEntity<>(jwtToken, OK);
     }
 
+    @PostMapping(value = "/users/register", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> register(@RequestBody User user){
+        repository.save(user);
+        return  new ResponseEntity<>(user, CREATED);
+    }
+    @GetMapping(value = "/users/stats", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserStats> userCount(){
+
+        List<User> users = (List<User>) this.repository.findAll();
+        List<User> usersAcheteur = (List<User>) this.repository.findByRoles("Acheteur");
+        List<User> usersPartenaire = (List<User>) this.repository.findByRoles("Partenaire");
+        List<User> usersONG = (List<User>) this.repository.findByRoles("ONG");
+        List<User> usersPublic = (List<User>) this.repository.findByRoles("Public");
+        UserStats userStats = new UserStats(users.size(), usersAcheteur.size(),usersPartenaire.size(),usersPublic.size(),usersONG.size());
+        return  new ResponseEntity<>(userStats, OK);
+    }
 
 
-}
+
+
+    }
