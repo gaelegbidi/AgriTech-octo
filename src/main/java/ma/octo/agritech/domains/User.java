@@ -1,15 +1,15 @@
 package ma.octo.agritech.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.xml.internal.ws.developer.Serialization;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -92,7 +92,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password,BCrypt.gensalt());
+        this.password = password;
     }
 
     public String getPhone() {

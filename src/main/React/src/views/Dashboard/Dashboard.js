@@ -18,6 +18,7 @@ class Dashboard extends Component {
 
                 this.setState({userStats: response.data});
 
+
             })
             .catch((error) => {
                 if (error.response) {

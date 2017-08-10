@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import ma.octo.agritech.controllers.UserApiController;
 
@@ -28,12 +29,16 @@ public class UserApiControllerTests {
 	@Autowired
 	private MockMvc mvc;
 
+	@Autowired
+	private OAuthHelper helper;
+
 	@Test
 	public void loginTest() throws Exception {
-		this.mvc.perform(post("/api/users/login").content("{\"username\":\"admin\",\"password\":\"admin\"}")
-				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).accept(MediaType.APPLICATION_JSON_UTF8))
-				.andExpect(status().isUnauthorized())
-				.andExpect(content().string("{\"error\":\"User email not found !\"}"));
+		RequestPostProcessor bearerToken = helper.bearerToken("agritech-client", "admin");
+
+		this.mvc.perform(get("/api/users/info").with(bearerToken).accept(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk())
+				.andExpect(content().string("{\"firstName\":\"null\",\"lastName\":\"null\",\"userName\":\"admin\"}"));
 	}
 
 }
