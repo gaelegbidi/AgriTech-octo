@@ -1,6 +1,7 @@
 package ma.octo.agritech.controllers;
 
 import ma.octo.agritech.domains.User;
+import ma.octo.agritech.domains.UserStats;
 import ma.octo.agritech.repositories.UserRepository;
 
 import org.springframework.http.ResponseEntity;
@@ -42,4 +43,7 @@ public class UserApiController {
 		return new ResponseEntity<>(userString, OK);
 	}
 
-}
+
+
+
+    }

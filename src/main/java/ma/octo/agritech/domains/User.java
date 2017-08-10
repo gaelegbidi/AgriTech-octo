@@ -1,6 +1,6 @@
 package ma.octo.agritech.domains;
 
-import org.mindrot.jbcrypt.BCrypt;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     private String phone;
     private String address;
@@ -91,7 +92,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password,BCrypt.gensalt());
+        this.password = password;
     }
 
     public String getPhone() {

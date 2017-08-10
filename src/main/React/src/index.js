@@ -35,6 +35,9 @@ export const apiRequest = request.create({
 //     }
 // }
 
+const checkIfExist =() =>{
+
+}
 
 const checkAuth = () => {
     const token = localStorage.getItem('token');
@@ -83,7 +86,7 @@ const checkAuthAdmin = () => {
     }
 
 
-    return userRole==='admin';
+    return userRole==='Admin';
 }
 
 const AuthRoute = ({component: Component, ...rest}) => (

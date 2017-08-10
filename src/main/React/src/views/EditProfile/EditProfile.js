@@ -1,41 +1,51 @@
 import React, { Component } from 'react';
-import {apiRequest} from "../../../index";
+import {apiRequest} from "../../index";
 import {Router} from 'react-router-dom'
 
-class Register extends Component {
+class EditProfile extends Component {
 
-    state = {
-        username: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        phone: '',
-        address: '',
-        city: '',
-        country: '',
-        function: '',
-        soiety: '',
-        roles: '' ,
+    constructor(props) {
+        super(props);
+        this.state = {
 
-    };
+                username: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                phone: '',
+                address: '',
+                city: '',
+                country: '',
+                function: '',
+                society: '',
+                roles: '' ,
+
+                    };
+        console.log(props)
+        apiRequest.get("/users/"+props.match.params.id).then((response) => {
+            console.log(response.data)
+            this.setState(response.data);
+
+        })
+
+
+    }
 
     onChange = (e) => {
-        console.log("yeahh!!!")
         this.setState({
             [e.target.name]: e.target.value,
         });
     };
 
-    userRegister = async (e) => {
+    editUserProfile = async (e) => {
         e.preventDefault();
-
         apiRequest.headers = {};
-        apiRequest.post('/users',this.state)
+        apiRequest.put('/users/'+ this.state.id ,this.state)
             .then((response) => {
             console.log(response.data)
                 setTimeout(()=>{
-                alert("user bien enregistrer")
+                alert("user bien modifier")
                      this.props.history.push(`/`)
                 },100);
             })
@@ -93,17 +103,17 @@ class Register extends Component {
                            onChange={e => this.onChange(e)}
                            value={this.state.email}/>
                   </div>
-                  <div className="input-group mb-3">
-                    <span className="input-group-addon"><i className="icon-lock"></i></span>
-                    <input type="password" className="form-control" placeholder="Password"
-                    name="password"
-                           onChange={e => this.onChange(e)}
-                           value={this.state.password}/>
-                  </div>
-                  <div className="input-group mb-4">
-                    <span className="input-group-addon"><i className="icon-lock"></i></span>
-                    <input type="password" className="form-control" placeholder="Repeat password"/>
-                  </div>
+                  {/*<div className="input-group mb-3">*/}
+                    {/*<span className="input-group-addon"><i className="icon-lock"></i></span>*/}
+                    {/*<input type="password" className="form-control" placeholder="Password"*/}
+                    {/*name="password"*/}
+                           {/*onChange={e => this.onChange(e)}*/}
+                           {/*value={this.state.password}/>*/}
+                  {/*</div>*/}
+                  {/*<div className="input-group mb-4">*/}
+                    {/*<span className="input-group-addon"><i className="icon-lock"></i></span>*/}
+                    {/*<input type="password" className="form-control" placeholder="Repeat password"/>*/}
+                  {/*</div>*/}
                     <div className="input-group mb-3">
                         <span className="input-group-addon"><i className="icon-user"></i></span>
                         <input type="text" className="form-control" placeholder="Phone"
@@ -157,7 +167,7 @@ class Register extends Component {
                         </select>
                     </div>
                   <button type="button" className="btn btn-block btn-success"
-                          onClick={this.userRegister}>Create Account</button>
+                          onClick={this.editUserProfile}>Edit Profile</button>
                 </div>
                 {/*<div className="card-footer p-4">*/}
                   {/*<div className="row">*/}
@@ -180,4 +190,4 @@ class Register extends Component {
         }
       }
 
-export default Register;
+export default EditProfile;

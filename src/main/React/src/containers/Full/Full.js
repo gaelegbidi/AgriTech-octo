@@ -6,7 +6,9 @@ import Breadcrumb from '../../components/Breadcrumb/';
 import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
-import Dashboard from '../../views/Dashboard/'
+import Dashboard from '../../views/Dashboard/';
+import Users from '../../views/Users/';
+import EditProfile from '../../views/EditProfile/';
 
 class Full extends Component {
   render() {
@@ -20,7 +22,10 @@ class Full extends Component {
             <div className="container-fluid">
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+                <Route path="/users" name="Users" component={Users}/>
+                <Route path="/editProfile/:id" name="EditProfile" component={EditProfile}/>
                 <Redirect from="/" to="/dashboard"/>
+
               </Switch>
             </div>
           </main>
