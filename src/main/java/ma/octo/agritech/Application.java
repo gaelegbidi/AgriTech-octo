@@ -37,6 +37,7 @@ public class Application {
 
 	public static final String RESOURCE_ID = "agritech-resource";
 	public static final String CLIENT_ID = "agritech-client";
+	public static final String CLIENT_PASSWORD = "Pa123456";
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -53,8 +54,13 @@ public class Application {
 	@EnableWebSecurity
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 	protected static class AuthServerConfig extends WebSecurityConfigurerAdapter {
+
 		@Autowired
 		private DataSource dataSource;
+
+		@Autowired
+		@Qualifier("userDetailsService")
+		private UserDetailsService userDetailsService;
 
 		@Autowired
 		public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
@@ -64,11 +70,11 @@ public class Application {
 					.authorities("user");
 		}
 
-//		@Bean
-//		@Override
-//		public UserDetailsService userDetailsServiceBean() throws Exception {
-//			return super.userDetailsServiceBean();
-//		}
+		@Bean
+		@Override
+		public UserDetailsService userDetailsServiceBean() throws Exception {
+			return userDetailsService;
+		}
 	}
 
 	@Configuration
@@ -86,7 +92,7 @@ public class Application {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().anyRequest().authenticated();
+			http.csrf().disable().authorizeRequests().anyRequest().authenticated();
 		}
 
 	}
@@ -131,7 +137,7 @@ public class Application {
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 			// Enregistrer le client OAUTH
-			clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient(CLIENT_ID).secret("Pa123456")
+			clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient(CLIENT_ID).secret(CLIENT_PASSWORD)
 					.authorizedGrantTypes("password", "refresh_token").authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
 					.scopes("read", "write", "trust").resourceIds(RESOURCE_ID).accessTokenValiditySeconds(60);
 		}
