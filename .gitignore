@@ -8,3 +8,5 @@ build
 yarn.lock
 npm-debug.log
 agritech.iml
+yarn.lock
+package-lock.json

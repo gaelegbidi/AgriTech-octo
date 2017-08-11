@@ -3,6 +3,7 @@ package ma.octo.agritech;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,6 +35,10 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 @SpringBootApplication
 public class Application {
 
+	public static final String RESOURCE_ID = "agritech-resource";
+	public static final String CLIENT_ID = "agritech-client";
+	public static final String CLIENT_PASSWORD = "Pa123456";
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
@@ -49,22 +54,26 @@ public class Application {
 	@EnableWebSecurity
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 	protected static class AuthServerConfig extends WebSecurityConfigurerAdapter {
+
 		@Autowired
 		private DataSource dataSource;
-		
+
+		@Autowired
+		@Qualifier("userDetailsService")
+		private UserDetailsService userDetailsService;
+
 		@Autowired
 		public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-			auth.jdbcAuthentication().dataSource(dataSource)
-			.withUser("admin").password("admin").authorities("admin").and()
-			.withUser("alice").password("password").authorities("user").and()
-			.withUser("bob").password("password").authorities("user").and()
-			.withUser("eve").password("password").authorities("user");
+			auth.jdbcAuthentication().dataSource(dataSource).withUser("admin").password("admin").authorities("admin")
+					.and().withUser("alice").password("password").authorities("user").and().withUser("bob")
+					.password("password").authorities("user").and().withUser("eve").password("password")
+					.authorities("user");
 		}
 
 		@Bean
 		@Override
 		public UserDetailsService userDetailsServiceBean() throws Exception {
-			return super.userDetailsServiceBean();
+			return userDetailsService;
 		}
 	}
 
@@ -78,11 +87,12 @@ public class Application {
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 			resources.tokenStore(tokenStore);
+			resources.resourceId(RESOURCE_ID);
 		}
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().anyRequest().authenticated();
+			http.csrf().disable().authorizeRequests().anyRequest().authenticated();
 		}
 
 	}
@@ -98,6 +108,10 @@ public class Application {
 		private DataSource dataSource;
 
 		private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+		@Autowired
+		@Qualifier("userDetailsService")
+		private UserDetailsService userDetailsService;
 
 		@Bean
 		public JdbcTokenStore tokenStore() {
@@ -117,25 +131,17 @@ public class Application {
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 			endpoints.authorizationCodeServices(authorizationCodeServices()).authenticationManager(auth)
-					.tokenStore(tokenStore()).approvalStoreDisabled();
+					.tokenStore(tokenStore()).approvalStoreDisabled().userDetailsService(userDetailsService);
 		}
 
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-			// @formatter:off
-			clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient("agritech-client")
-					.authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-					.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT").scopes("read", "write", "trust")
-					.resourceIds("oauth2-resource").accessTokenValiditySeconds(60).and()
-					.withClient("my-client-with-registered-redirect").authorizedGrantTypes("authorization_code")
-					.authorities("ROLE_CLIENT").scopes("read", "trust").resourceIds("oauth2-resource")
-					.redirectUris("http://localhost:8080").and().withClient("my-client-with-secret")
-					.authorizedGrantTypes("client_credentials", "password").authorities("ROLE_CLIENT").scopes("read")
-					.resourceIds("oauth2-resource").secret("secret");
-			// @formatter:on
+			// Enregistrer le client OAUTH
+			clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient(CLIENT_ID).secret(CLIENT_PASSWORD)
+					.authorizedGrantTypes("password", "refresh_token").authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+					.scopes("read", "write", "trust").resourceIds(RESOURCE_ID).accessTokenValiditySeconds(60);
 		}
 
 	}
-
 
 }
