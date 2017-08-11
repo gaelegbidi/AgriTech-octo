@@ -85,7 +85,7 @@ class Header extends Component {
                             <DropdownMenu className="dropdown-menu-right">
                                 <DropdownItem header className="text-center"><strong>Account</strong></DropdownItem>
 
-                                {localStorage.getItem('roles')==='admin'? (<DropdownItem onClick={()=>{this.props.history.push('/register');}}><i className="fa fa-bell-o"></i> Register<span
+                                {localStorage.getItem('roles')==='Admin'? (<DropdownItem onClick={()=>{this.props.history.push('/register');}}><i className="fa fa-bell-o"></i> Register<span
                                     className="badge badge-info">42</span></DropdownItem>) : null}
                                 <DropdownItem><i className="fa fa-envelope-o"></i> Messages<span
                                     className="badge badge-success">42</span></DropdownItem>

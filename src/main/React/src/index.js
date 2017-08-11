@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import {createBrowserHistory} from 'history';
 import decode from 'jwt-decode';
-import request from 'axios'
+import request from 'axios';
+import config from './config'
 
 // Containers
 import Full from './containers/Full/'
@@ -15,11 +16,28 @@ import Page404 from './views/Pages/Page404/'
 import Page500 from './views/Pages/Page500/'
 
 export const gHistory = createBrowserHistory();
+//
+// // Handle API request errors
+// request.interceptors.response.use(response => {
+//     return response;
+// }, error => {
+//     return new Promise((resolve, reject) => {
+//         if (error.status === 401 && error.data.error_description === 'The access token provided has expired.') {
+//             // AuthActions.refreshToken({initialRequest: error.config, resolve: resolve, reject: reject});
+//         } else if (error.status === 401 && error.statusText === 'Unauthorized') {
+//             // AuthActions.logout();
+//         } else {
+//             reject(error);
+//         }
+//     });
+// });
 
-export const apiRequest = request.create({
-    baseURL: 'http://localhost:8080/api/',
+export var apiRequest = request.create({
+    baseURL: config.apiUrlBase,
     timeout: 1000
 });
+
+
 
 // headers: {'X-Custom-Header': 'foobar'}
 

@@ -10,7 +10,7 @@ class UsersTable extends React.Component{
                 <div className="col-lg-12">
                     <div className="card">
                         <div className="card-header">
-                            <i className="fa fa-align-justify"></i> Combined All Table
+                            <i className="fa fa-align-justify"></i> All Users
                         </div>
                         <div className="card-block">
                             <table className="table table-bordered table-striped table-sm">
@@ -24,7 +24,6 @@ class UsersTable extends React.Component{
                                 </thead>
                                 <tbody>
                                 {this.props.children}
-
                                 </tbody>
                             </table>
                             <nav>

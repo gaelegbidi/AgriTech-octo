@@ -30,7 +30,6 @@ class Register extends Component {
     userRegister = async (e) => {
         e.preventDefault();
 
-        apiRequest.headers = {};
         apiRequest.post('/users',this.state)
             .then((response) => {
             console.log(response.data)

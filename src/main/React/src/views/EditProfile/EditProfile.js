@@ -7,7 +7,7 @@ class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            
                 username: '',
                 firstName: '',
                 lastName: '',
@@ -40,7 +40,6 @@ class EditProfile extends Component {
 
     editUserProfile = async (e) => {
         e.preventDefault();
-        apiRequest.headers = {};
         apiRequest.put('/users/'+ this.state.id ,this.state)
             .then((response) => {
             console.log(response.data)

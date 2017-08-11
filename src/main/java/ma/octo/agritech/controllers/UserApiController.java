@@ -18,30 +18,30 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "api")
 public class UserApiController {
 
-	private final UserRepository repository;
-
-	public UserApiController(UserRepository repository) {
-		this.repository = repository;
-	}
-
-	@PreAuthorize("#oauth2.hasScope('myapi:write')")
-	@RequestMapping(value = "/users/info", produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getUserInfo(final Principal principal) {
-
-		Collection<User> users = repository.findByUsername(principal.getName());
-		if (users.size() == 0) {
-			return new ResponseEntity<>("{\"error\":\"Utilisateur introuvable\"}", UNAUTHORIZED);
-		}
-
-		User user = null;
-		for (User userTmp : users) {
-			user = userTmp;
-			break;
-		}
-		String userString = String.format("{\"firstName\":\"%s\",\"lastName\":\"%s\",\"userName\":\"%s\"}",
-				user.getFirstName(), user.getLastName(), user.getUsername());
-		return new ResponseEntity<>(userString, OK);
-	}
+//	private final UserRepository repository;
+//
+//	public UserApiController(UserRepository repository) {
+//		this.repository = repository;
+//	}
+//
+//	@PreAuthorize("#oauth2.hasScope('myapi:write')")
+//	@RequestMapping(value = "/users/info", produces = APPLICATION_JSON_VALUE)
+//	public ResponseEntity<String> getUserInfo(final Principal principal) {
+//
+//		Collection<User> users = repository.findByUsername(principal.getName());
+//		if (users.size() == 0) {
+//			return new ResponseEntity<>("{\"error\":\"Utilisateur introuvable\"}", UNAUTHORIZED);
+//		}
+//
+//		User user = null;
+//		for (User userTmp : users) {
+//			user = userTmp;
+//			break;
+//		}
+//		String userString = String.format("{\"firstName\":\"%s\",\"lastName\":\"%s\",\"userName\":\"%s\"}",
+//				user.getFirstName(), user.getLastName(), user.getUsername());
+//		return new ResponseEntity<>(userString, OK);
+//	}
 
 
 

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {apiRequest} from "../../../index";
-import {Router} from 'react-router-dom'
+// import {apiRequest} from "../../../index";
+import {Router} from 'react-router-dom';
+import request from 'axios';
+import config from "../../../config"
+
 
 
 
@@ -9,6 +12,13 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
+        grant_type:"password",
+
+
+            client_id: config.clientId,
+        client_secret: config.clientSecret,
+        scope: "*"
+
     };
 
     onChange = (e) => {
@@ -19,29 +29,41 @@ class Login extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8080/oauth/token?grant_type=password&username=Frodo&password=dede",
+            "method": "POST",
+            "headers": {
+                "authorization": "Basic YWdyaXRlY2gtY2xpZW50OnNlY3JldA==",
+                "cache-control": "no-cache",
+                "postman-token": "978972e6-6aeb-b798-68b3-f4cd2c545305"
+            }
+        }
 
-        apiRequest.headers = {};
-        apiRequest.post('/users/login',this.state)
-            .then((response) => {
-                console.log(response.status);
-                console.log(response.data);
-                localStorage.setItem('token', response.data);
-                setTimeout(()=>{
-                    this.props.history.push(`/`)
-                },100);
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                } else if (error.request) {
-                    console.log(error.request);
-                } else {
-                    console.log('Error', error.message);
-                }
-                console.log(error.config);
-            })
+        jQuery.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+        // request.post("http://localhost:8080/oauth/token",this.state)
+        //     .then((response) => {
+        //         console.log(response.data);
+        //         localStorage.setItem('token', response.data);
+        //         setTimeout(()=>{
+        //             this.props.history.push(`/`)
+        //         },100);
+        //     })
+        //     .catch((error) => {
+        //         if (error.response) {
+        //             console.log(error.response.data);
+        //             console.log(error.response.status);
+        //             console.log(error.response.headers);
+        //         } else if (error.request) {
+        //             console.log(error.request);
+        //         } else {
+        //             console.log('Error', error.message);
+        //         }
+        //         console.log(error.config);
+        //     })
 
     };
 

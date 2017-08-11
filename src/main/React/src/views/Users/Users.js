@@ -21,7 +21,6 @@ class Users extends React.Component {
 
     loadAllUsers(){
 
-        apiRequest.headers = {};
         apiRequest.get('/users')
             .then((response) => {
                 console.log(response.status);

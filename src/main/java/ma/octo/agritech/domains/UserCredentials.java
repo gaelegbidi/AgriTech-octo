@@ -1,10 +1,14 @@
 package ma.octo.agritech.domains;
 
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.List;
+
 public class UserCredentials {
     private String username;
     private String password;
 
-    public UserCredentials() {
+    public UserCredentials(String name, String password, List<GrantedAuthority> authorityList) {
 
     }
 
