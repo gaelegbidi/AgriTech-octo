@@ -28,22 +28,14 @@ public class UserApiController {
 	@RequestMapping(value = "/users/info", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getUserInfo(final Principal principal) {
 
-		Collection<User> users = repository.findByUsername(principal.getName());
-		if (users.size() == 0) {
+		User user = repository.findOneByUsername(principal.getName());
+		if (user == null) {
 			return new ResponseEntity<>("{\"error\":\"Utilisateur introuvable\"}", UNAUTHORIZED);
 		}
 
-		User user = null;
-		for (User userTmp : users) {
-			user = userTmp;
-			break;
-		}
 		String userString = String.format("{\"firstName\":\"%s\",\"lastName\":\"%s\",\"userName\":\"%s\"}",
 				user.getFirstName(), user.getLastName(), user.getUsername());
 		return new ResponseEntity<>(userString, OK);
 	}
 
-
-
-
-    }
+}
