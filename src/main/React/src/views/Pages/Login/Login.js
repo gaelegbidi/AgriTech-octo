@@ -26,6 +26,7 @@ class Login extends Component {
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('refresh_token', response.data.refresh_token);
+                console.log(response.data.access_token);
                 setTimeout(()=>{
                     this.props.history.push(`/`)
                 },100);
