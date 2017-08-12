@@ -16,31 +16,49 @@ import Page500 from './views/Pages/Page500/'
 
 export const gHistory = createBrowserHistory();
 
+export const authRequest = request.create({
+    baseURL: 'http://localhost:8080/',
+    timeout: 1000,
+    auth: {
+      username: 'agritech-client',
+      password: 'Pa123456'
+    }
+});
+
 export const apiRequest = request.create({
     baseURL: 'http://localhost:8080/api/',
     timeout: 1000
 });
 
-// headers: {'X-Custom-Header': 'foobar'}
+// Add a request interceptor
+apiRequest.interceptors.request.use(function (config) {
+    let access_token = localStorage.getItem('access_token');
+    console.log("Voici le tocken intercepté");
+    console.log(access_token);
+    if (access_token) {
+        config.headers.common['authorization'] = 'Bearer ' + access_token;
+    }
+    return config;
+  }, function (error) {
+    // Do something with request error
+    console.log(error);
+    return Promise.reject(error);
+  });
 
-// const fakeAuth = {
-//     isAuthenticated: false,
-//     authenticate(cb) {
-//         this.isAuthenticated = true
-//         setTimeout(cb, 100) // fake async
-//     },
-//     signout(cb) {
-//         this.isAuthenticated = false
-//         setTimeout(cb, 100)
-//     }
-// }
-
-const checkIfExist =() =>{
-
-}
+// Add a response interceptor
+apiRequest.interceptors.response.use(function (response) {
+    // Do something with response data
+    return response;
+  }, function (error) {
+    // Do something with response error
+    if(error.response.data.error == "unauthorized"){
+        localStorage.clear();
+    }
+    return Promise.reject(error);
+  });
 
 const checkAuth = () => {
-    const token = localStorage.getItem('token');
+    let token = localStorage.getItem('access_token');
     if (!token) {
         return false;
     }
@@ -48,13 +66,13 @@ const checkAuth = () => {
     try {
         // { exp: 12903819203 }
 
-        const { exp,sub,roles } = decode(token);
-        localStorage.setItem('username',sub);
-        localStorage.setItem('roles',roles);
+        //const { exp,sub,roles } = decode(token);
+        //localStorage.setItem('username',sub);
+        //localStorage.setItem('roles',roles);
 
-        if (exp < new Date().getTime() / 1000) {
-            return false;
-        }
+        //if (exp < new Date().getTime() / 1000) {
+        //    return false;
+        //}
 
     } catch (e) {
         return false;
@@ -64,7 +82,7 @@ const checkAuth = () => {
 }
 const checkAuthAdmin = () => {
     let userRole='user';
-    const token = localStorage.getItem('token');
+    let token = localStorage.getItem('access_token');
     if (!token) {
         return false;
     }
@@ -72,14 +90,14 @@ const checkAuthAdmin = () => {
     try {
         // { exp: 12903819203 }
 
-        const { exp,sub,roles } = decode(token);
-        localStorage.setItem('username',sub);
-        localStorage.setItem('roles',roles);
-        userRole=roles;
+        //const { exp,sub,roles } = decode(token);
+        //localStorage.setItem('username',sub);
+        //localStorage.setItem('roles',roles);
+        //userRole=roles;
 
-        if (exp < new Date().getTime() / 1000) {
-            return false;
-        }
+        //if (exp < new Date().getTime() / 1000) {
+        //    return false;
+        //}
 
     } catch (e) {
         return false;

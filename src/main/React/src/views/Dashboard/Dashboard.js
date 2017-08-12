@@ -15,10 +15,7 @@ class Dashboard extends Component {
 
         apiRequest.get('/users/stats')
             .then((response) => {
-
                 this.setState({userStats: response.data});
-
-
             })
             .catch((error) => {
                 if (error.response) {

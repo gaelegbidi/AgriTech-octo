@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
+import {authRequest} from "../../../index";
 import {apiRequest} from "../../../index";
 import {Router} from 'react-router-dom'
-
-
 
 class Login extends Component {
 
     state = {
         username: '',
         password: '',
+        grant_type: 'password'
     };
 
     onChange = (e) => {
@@ -20,12 +20,12 @@ class Login extends Component {
     onSubmit = async (e) => {
         e.preventDefault();
 
-        apiRequest.headers = {};
-        apiRequest.post('/users/login',this.state)
+        authRequest.headers = {};
+        authRequest.post('/oauth/token', 'grant_type=password&username=' + this.state.username + 
+            '&password='+this.state.password)
             .then((response) => {
-                console.log(response.status);
-                console.log(response.data);
-                localStorage.setItem('token', response.data);
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('refresh_token', response.data.refresh_token);
                 setTimeout(()=>{
                     this.props.history.push(`/`)
                 },100);
