@@ -24,7 +24,7 @@ public class UserApiController {
 	}
 
 	@PreAuthorize("#oauth2.hasScope('api:read')")
-	@RequestMapping(value = "/users/info", produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/users/info", produces = APPLICATION_JSON_VALUE)
 	public User getUserInfo(final Principal principal) {
 
 		return repository.findOneByUsername(principal.getName());

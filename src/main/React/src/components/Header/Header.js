@@ -43,7 +43,7 @@ class Header extends Component {
 
     userLogout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
         setTimeout(()=>{
             this.props.history.push(`/`);
         },100);
@@ -57,6 +57,7 @@ class Header extends Component {
                 <button className="navbar-toggler mobile-sidebar-toggler d-lg-none" onClick={this.mobileSidebarToggle}
                         type="button">&#9776;</button>
                 <a className="navbar-brand" href="#"></a>
+
                 <ul className="nav navbar-nav d-md-down-none mr-auto">
                     <li className="nav-item">
                         <button className="nav-link navbar-toggler sidebar-toggler" type="button"
@@ -85,8 +86,8 @@ class Header extends Component {
                             <DropdownMenu className="dropdown-menu-right">
                                 <DropdownItem header className="text-center"><strong>Account</strong></DropdownItem>
 
-                                {localStorage.getItem('roles')==='admin'? (<DropdownItem onClick={()=>{this.props.history.push('/register');}}><i className="fa fa-bell-o"></i> Register<span
-                                    className="badge badge-info">42</span></DropdownItem>) : null}
+                                 <DropdownItem onClick={()=>{this.props.history.push('/register')}}><i className="fa fa-bell-o"></i> Register<span
+                                    className="badge badge-info">42</span></DropdownItem>
                                 <DropdownItem><i className="fa fa-envelope-o"></i> Messages<span
                                     className="badge badge-success">42</span></DropdownItem>
                                 <DropdownItem><i className="fa fa-tasks"></i> Tasks<span className="badge badge-danger">42</span></DropdownItem>

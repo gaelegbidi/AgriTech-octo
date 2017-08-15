@@ -3,6 +3,7 @@ package ma.octo.agritech.domains;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -31,7 +33,7 @@ public class User implements UserDetails {
 	private String lastName;
 	private String email;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	private String password;
 	
 	private String phone;
@@ -40,10 +42,12 @@ public class User implements UserDetails {
 	private String country;
 	private String function;
 	private String society;
-	private String roles;
+	private String roles="admin";
 	
 	@Column(name = "enabled", nullable = false)
-	private boolean enabled;
+	private boolean enabled=true;
+
+//	private List<GrantedAuthority> authorities;
 
 	public User() {
 	}
@@ -168,8 +172,8 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
-		return authorities;
+        return  authorities;
+//		return this.getGrantedAuthoritiesByStringRoles();
 	}
 
 	@Override
@@ -201,4 +205,15 @@ public class User implements UserDetails {
 	public String getUsername() {
 		return username;
 	}
+
+	private List<GrantedAuthority> getGrantedAuthoritiesByStringRoles() {
+		List<String> roles = Arrays.asList(this.getRoles().split("\\|")); //decouper  la liste a partir de |
+
+		List<GrantedAuthority> auths = new ArrayList<>();
+		for(String role : roles){
+			auths.add(new SimpleGrantedAuthority(role.toUpperCase()));
+		}
+		return auths;
+	}
+
 }

@@ -2,6 +2,7 @@ package ma.octo.agritech;
 
 import javax.sql.DataSource;
 
+import ma.octo.agritech.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +20,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -48,98 +51,9 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Configuration
-	@EnableWebSecurity
-	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-	protected static class AuthServerConfig extends WebSecurityConfigurerAdapter {
-
-		@Autowired
-		private DataSource dataSource;
-
-		@Autowired
-		@Qualifier("userDetailsService")
-		private UserDetailsService userDetailsService;
-
-		@Autowired
-		public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-			auth.jdbcAuthentication().dataSource(dataSource).withUser("admin").password("admin").authorities("admin")
-					.and().withUser("alice").password("password").authorities("user").and().withUser("bob")
-					.password("password").authorities("user").and().withUser("eve").password("password")
-					.authorities("user");
-		}
-
-		@Bean
-		@Override
-		public UserDetailsService userDetailsServiceBean() throws Exception {
-			return userDetailsService;
-		}
-	}
-
-	@Configuration
-	@EnableResourceServer
-	protected static class ResourceServer extends ResourceServerConfigurerAdapter {
-
-		@Autowired
-		private TokenStore tokenStore;
-
-		@Override
-		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-			resources.tokenStore(tokenStore);
-			resources.resourceId(RESOURCE_ID);
-		}
-
-		@Override
-		public void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable().authorizeRequests().anyRequest().authenticated();
-		}
-
-	}
-
-	@Configuration
-	@EnableAuthorizationServer
-	protected static class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-
-		@Autowired
-		private AuthenticationManager auth;
-
-		@Autowired
-		private DataSource dataSource;
-
-		private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-		@Autowired
-		@Qualifier("userDetailsService")
-		private UserDetailsService userDetailsService;
-
-		@Bean
-		public JdbcTokenStore tokenStore() {
-			return new JdbcTokenStore(dataSource);
-		}
-
-		@Bean
-		protected AuthorizationCodeServices authorizationCodeServices() {
-			return new JdbcAuthorizationCodeServices(dataSource);
-		}
-
-		@Override
-		public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-			security.passwordEncoder(passwordEncoder);
-		}
-
-		@Override
-		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-			endpoints.authorizationCodeServices(authorizationCodeServices()).authenticationManager(auth)
-					.tokenStore(tokenStore()).approvalStoreDisabled().userDetailsService(userDetailsService);
-		}
-
-		@Override
-		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-			// Enregistrer le client OAUTH
-			clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient(CLIENT_ID).secret(CLIENT_PASSWORD)
-					.authorizedGrantTypes("password", "refresh_token").authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-					.scopes("read", "write", "trust").resourceIds(RESOURCE_ID).accessTokenValiditySeconds(86400);//une journée
-		}
-
+	@Autowired
+	public void authenticationManager(AuthenticationManagerBuilder builder,UserRepository userRepository) throws Exception {
+		builder.userDetailsService(username -> userRepository.findOneByUsername(username));
 	}
 
 	@Bean
@@ -147,7 +61,6 @@ public class Application {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("http://localhost:3000");
 		config.addAllowedOrigin("*");
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
@@ -156,5 +69,49 @@ public class Application {
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
 	}
+
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+			System.out.println("App ready ");
+		};
+	}
+
+//	@Configuration
+//	@EnableWebSecurity
+//	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//	protected static class AuthServerConfig extends WebSecurityConfigurerAdapter {
+//
+//
+//
+//		@Qualifier("dataSource")
+//		@Autowired
+//		private DataSource dataSource;
+//
+//		@Autowired
+//		@Qualifier("userDetailsService")
+//		private UserDetailsService userDetailsService;
+//
+////		@Autowired
+////		public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+////			auth.jdbcAuthentication().dataSource(dataSource).withUser("admin").password("admin").authorities("admin")
+////					.and().withUser("alice").password("password").authorities("user").and().withUser("bob")
+////					.password("password").authorities("user").and().withUser("eve").password("password")
+////					.authorities("user");
+////
+////		}
+//
+//		@Bean
+//		@Override
+//		public UserDetailsService userDetailsServiceBean() throws Exception {
+//			return userDetailsService;
+//		}
+//	}
+
+
+
+
+
+
 
 }

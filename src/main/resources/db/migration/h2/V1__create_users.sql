@@ -1,18 +1,17 @@
-
 create table users (
-  id bigint primary key AUTO_INCREMENT, 
+  id bigint primary key AUTO_INCREMENT,
   username varchar(255),
-  password varchar(255), 
+  password varchar(255),
   enabled boolean,
-  email varchar(255), 
-  first_name varchar(255), 
-  last_name varchar(255), 
-  roles varchar(255), 
-  phone varchar(255), 
-  address varchar(255), 
-  city varchar(255), 
-  country varchar(255), 
-  function varchar(255), 
+  email varchar(255),
+  first_name varchar(255),
+  last_name varchar(255),
+  roles varchar(255),
+  phone varchar(255),
+  address varchar(255),
+  city varchar(255),
+  country varchar(255),
+  function varchar(255),
   society varchar(255)
 );
 

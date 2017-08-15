@@ -24,14 +24,14 @@ logging:
     org.springframework.security: DEBUG
     org.flywaydb: DEBUG
 
-security.oauth2.client.client-id: agritech
-security.oauth2.client.client-secret: agritech
-security.oauth2.authorization.checkTokenAccess: isAuthenticated()
-security.oauth2.resource.filter-order: 3
-security:
-  oauth2:
-    resource:
-      id: agritech-client
+#security.oauth2.client.client-id: agritech
+#security.oauth2.client.client-secret: agritech
+#security.oauth2.authorization.checkTokenAccess: isAuthenticated()
+#security.oauth2.resource.filter-order: 3
+#security:
+#  oauth2:
+#    resource:
+#      id: agritech-client
 
 ---
 spring:
@@ -44,4 +44,5 @@ spring:
     url: jdbc:mysql://localhost:3306/agriTech
     username: root
     password: mypassword
+
 

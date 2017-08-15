@@ -26,8 +26,17 @@ class Login extends Component {
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('refresh_token', response.data.refresh_token);
-                console.log(response.data.access_token);
+                localStorage.setItem('expired_in', response.data.expired_in);
+
+                apiRequest.get("/users/info").then((res)=>{
+                    console.log(res.data);
+                    localStorage.setItem('username', res.data.username);
+                    localStorage.setItem('roles', res.data.roles);
+                });
+
+                console.log(response.data);
                 setTimeout(()=>{
+
                     this.props.history.push(`/`)
                 },100);
             })
@@ -87,11 +96,11 @@ class Login extends Component {
                                 <div className="card card-inverse card-primary py-5 d-md-down-none"
                                      style={{width: 44 + '%'}}>
                                     <div className="card-block text-center">
+                                        <img src="./img/logo.png" width="80%" alt="AgriTech-Octo" />
                                         <div>
-                                            <h2>Sign up</h2>
+                                            <h2>---</h2>
                                             <p>Voila comment nous aidons les agriculteurs avec la technologie à octo!!!.</p>
-                                            <button type="button" className="btn btn-primary active mt-3">Register
-                                                Now!
+                                            <button type="button" className="btn btn-primary active mt-3">About Us
                                             </button>
                                         </div>
                                     </div>

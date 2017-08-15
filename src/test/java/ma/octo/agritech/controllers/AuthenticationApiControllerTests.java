@@ -39,6 +39,13 @@ public class AuthenticationApiControllerTests {
 				.param("grant_type", GRANT_TYPE).param("username", USER_USERNAME).param("password", USER_PASSWORD))
 				.andExpect(status().isOk()).andExpect(content().string(containsString("access_token")));
 	}
+	@Test
+	public void authenticationAnotherUserTest() throws Exception {
+
+		this.mvc.perform(post("/oauth/token").with(httpBasic(CLIENT_ID, CLIENT_PASSWORD))
+				.param("grant_type", GRANT_TYPE).param("username", "Frodo").param("password", "dede"))
+				.andExpect(status().isOk()).andExpect(content().string(containsString("access_token")));
+	}
 
 	@Test
 	public void authenticationClientLoginIncorrectTest() throws Exception {

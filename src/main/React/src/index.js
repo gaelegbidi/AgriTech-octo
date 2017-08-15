@@ -63,48 +63,29 @@ const checkAuth = () => {
         return false;
     }
 
-    try {
-        // { exp: 12903819203 }
-
-        //const { exp,sub,roles } = decode(token);
-        //localStorage.setItem('username',sub);
-        //localStorage.setItem('roles',roles);
-
-        //if (exp < new Date().getTime() / 1000) {
-        //    return false;
-        //}
-
-    } catch (e) {
-        return false;
-    }
+    // try {
+    //     // { exp: 12903819203 }
+    //     // console.log(decode(token));
+    //     // const { exp,sub,roles } = decode(token);
+    //     // localStorage.setItem('username',sub);
+    //     // localStorage.setItem('roles',roles);
+    //     //
+    //     // if (exp < new Date().getTime() / 1000) {
+    //     //    return false;
+    //     // }
+    //
+    // } catch (e) {
+    //     return false;
+    // }
 
     return true;
 }
 const checkAuthAdmin = () => {
-    let userRole='user';
     let token = localStorage.getItem('access_token');
     if (!token) {
         return false;
     }
-
-    try {
-        // { exp: 12903819203 }
-
-        //const { exp,sub,roles } = decode(token);
-        //localStorage.setItem('username',sub);
-        //localStorage.setItem('roles',roles);
-        //userRole=roles;
-
-        //if (exp < new Date().getTime() / 1000) {
-        //    return false;
-        //}
-
-    } catch (e) {
-        return false;
-    }
-
-
-    return userRole==='Admin';
+    return localStorage.getItem('roles')==='admin';
 }
 
 const AuthRoute = ({component: Component, ...rest}) => (
