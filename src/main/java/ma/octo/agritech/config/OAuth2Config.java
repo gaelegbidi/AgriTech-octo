@@ -77,7 +77,7 @@ class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 					.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
 					.scopes("read", "write", "trust")
 					.resourceIds(RESOURCE_ID)
-					.accessTokenValiditySeconds(86400);//une journée
+					.accessTokenValiditySeconds(86400);
 		}
 
 	}
