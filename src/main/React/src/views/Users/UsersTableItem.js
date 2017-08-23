@@ -19,7 +19,6 @@ class UsersTableItem extends React.Component {
                 console.log(response.data);
                 setTimeout(()=>{
                     window.location.reload();
-                    // this.props.history.push(`/users`)
                 },100);
             })
             .catch((error) => {

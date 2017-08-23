@@ -86,22 +86,22 @@ class Header extends Component {
                             <DropdownMenu className="dropdown-menu-right">
                                 <DropdownItem header className="text-center"><strong>Account</strong></DropdownItem>
 
-                                 <DropdownItem onClick={()=>{this.props.history.push('/register')}}><i className="fa fa-bell-o"></i> Register<span
+                                <DropdownItem onClick={()=>{this.props.history.push('/register')}}><i className="fa fa-bell-o"></i> Register<span
                                     className="badge badge-info">42</span></DropdownItem>
                                 <DropdownItem><i className="fa fa-envelope-o"></i> Messages<span
                                     className="badge badge-success">42</span></DropdownItem>
-                                <DropdownItem><i className="fa fa-tasks"></i> Tasks<span className="badge badge-danger">42</span></DropdownItem>
-                                <DropdownItem><i className="fa fa-comments"></i> Comments<span
-                                    className="badge badge-warning">42</span></DropdownItem>
+                                {/*<DropdownItem><i className="fa fa-tasks"></i> Tasks<span className="badge badge-danger">42</span></DropdownItem>*/}
+                                {/*<DropdownItem><i className="fa fa-comments"></i> Comments<span*/}
+                                    {/*className="badge badge-warning">42</span></DropdownItem>*/}
 
                                 <DropdownItem header className="text-center"><strong>Settings</strong></DropdownItem>
 
-                                <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
+                                {/*<DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>*/}
                                 <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-                                <DropdownItem><i className="fa fa-usd"></i> Payments<span
-                                    className="badge badge-default">42</span></DropdownItem>
-                                <DropdownItem><i className="fa fa-file"></i> Projects<span
-                                    className="badge badge-primary">42</span></DropdownItem>
+                                {/*<DropdownItem><i className="fa fa-usd"></i> Payments<span*/}
+                                    {/*className="badge badge-default">42</span></DropdownItem>*/}
+                                {/*<DropdownItem><i className="fa fa-file"></i> Projects<span*/}
+                                    {/*className="badge badge-primary">42</span></DropdownItem>*/}
                                 <DropdownItem divider/>
                                 <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
                                 <DropdownItem  onClick={this.userLogout} ><i className="fa fa-lock"></i>

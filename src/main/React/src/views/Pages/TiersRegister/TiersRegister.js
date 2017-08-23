@@ -150,18 +150,10 @@ class Register extends Component {
                         <select name="roles" onChange = { e => this.onChange(e)} defaultValue={this.state.roles} >
                             <option value="Acheteur" >Agriculteur Acheteur</option>
                             <option value="Partenaire" >Partenaire</option>
-                            <option value="admin">Administrateur</option>
+                            <option value="Admin">Administrateur</option>
                             <option value="Public" >Pouvoirs Public</option>
                             <option value="ONG" >ONG</option>
-                            <option value="agriculteur" >Agriculteur</option>
-                            <option value="eleveur" >Eleveur</option>
                         </select>
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-md-3 form-control-label" htmlFor="file-input">Profil Photo</label>
-                        <div className="col-md-9">
-                            <input type="file" id="file-input" name="file-input"/>
-                        </div>
                     </div>
                   <button type="button" className="btn btn-block btn-success"
                           onClick={this.userRegister}>Create Account</button>

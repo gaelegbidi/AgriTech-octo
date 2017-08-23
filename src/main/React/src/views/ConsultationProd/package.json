@@ -1,0 +1,6 @@
+{
+  "name": "ConsulationProd",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ConsultationProd.js"
+}

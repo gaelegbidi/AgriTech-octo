@@ -23,10 +23,19 @@ class Sidebar extends Component {
         <nav className="sidebar-nav">
           <ul className="nav">
             <li className="nav-item">
-              <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="icon-speedometer"></i> Dashboard <span className="badge badge-info">NEW</span></NavLink>
+              <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="icon-speedometer"></i> Dashboard </NavLink>
             </li>
             <li className={this.activeRoute("/users")}>
-              <NavLink to={'/users'} className="nav-link" activeClassName="active"><i className="icon-people"></i> Users</NavLink>
+                {localStorage.getItem('roles')==='admin'?<NavLink to={'/users'} className="nav-link" activeClassName="active">
+                  <i className="icon-people"></i> Users</NavLink>:null}
+
+            </li>
+            <li className={this.activeRoute("/consultationProd")}>
+              <NavLink to={'/consultationProd'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Consult Production</NavLink>
+
+            </li>
+            <li className={this.activeRoute("/submitEstimate")}>
+              <NavLink to={'/submitEstimate'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Submit Estimate</NavLink>
 
             </li>
 

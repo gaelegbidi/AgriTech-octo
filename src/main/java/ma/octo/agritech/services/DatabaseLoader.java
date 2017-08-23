@@ -22,11 +22,11 @@ public class DatabaseLoader implements CommandLineRunner
     public void run(String... strings) throws Exception {
 
         this.repository.save(new User("frodo", "Baggins", "ring bearer","dddd", "dede", "didi","cc","jiji","hello","grgr","koko","admin"));
-        this.repository.save(new User("frodo1", "Baggins", "ring bearer","dddd", "dede1", "didi","cc","jiji","hello","grgr","koko","Admin"));
-        this.repository.save(new User("frodo2", "Baggins", "ring bearer","dddd", "dede2", "didi","cc","jiji","hello","grgr","koko","ONG"));
-        this.repository.save(new User("frodo4", "Baggins", "ring bearer","dddd", "dede3", "didi","cc","jiji","hello","grgr","koko","Public"));
-        this.repository.save(new User("frodo5", "Baggins", "ring bearer","dddd", "dede4", "didi","cc","jiji","hello","grgr","koko","Partenaire"));
-        this.repository.save(new User("frodo6", "Baggins", "ring bearer","dddd", "dede5", "didi","cc","jiji","hello","grgr","koko","Acheteur"));
+        this.repository.save(new User("frodo1", "Baggins", "ring bearer","dddd", "dede1", "didi","cc","jiji","hello","grgr","koko","admin"));
+        this.repository.save(new User("frodo2", "Baggins", "ring bearer","dddd", "dede2", "didi","cc","jiji","hello","grgr","koko","ong"));
+        this.repository.save(new User("frodo4", "Baggins", "ring bearer","dddd", "dede3", "didi","cc","jiji","hello","grgr","koko","public"));
+        this.repository.save(new User("frodo5", "Baggins", "ring bearer","dddd", "dede4", "didi","cc","jiji","hello","grgr","koko","partenaire"));
+        this.repository.save(new User("frodo6", "Baggins", "ring bearer","dddd", "dede5", "didi","cc","jiji","hello","grgr","koko","acheteur"));
 
     }
 }

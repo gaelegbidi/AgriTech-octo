@@ -46,7 +46,6 @@ public class User implements UserDetails {
 	
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled=true;
-
 //	private List<GrantedAuthority> authorities;
 
 	public User() {

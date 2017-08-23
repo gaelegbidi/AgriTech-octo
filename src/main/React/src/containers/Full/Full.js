@@ -8,7 +8,10 @@ import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/';
 import Users from '../../views/Users/';
+import ConsultationProd from '../../views/ConsultationProd/';
+import SubmitEstimate from '../../views/SubmitEstimate/';
 import EditProfile from '../../views/EditProfile/';
+import {AdminRoute} from '../../index';
 
 class Full extends Component {
   render() {
@@ -22,10 +25,11 @@ class Full extends Component {
             <div className="container-fluid">
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
-                <Route path="/users" name="Users" component={Users}/>
+                <AdminRoute path="/users" name="Users" component={Users}/>
+                <Route path="/consultationProd" name="Consulation Production" component={ConsultationProd}/>
+                <Route path="/submitEstimate" name="Submit Estimate" component={SubmitEstimate}/>
                 <Route path="/editProfile/:id" name="EditProfile" component={EditProfile}/>
                 <Redirect from="/" to="/dashboard"/>
-
               </Switch>
             </div>
           </main>

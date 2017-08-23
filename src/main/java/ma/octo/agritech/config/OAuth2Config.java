@@ -19,20 +19,15 @@ import static ma.octo.agritech.Application.RESOURCE_ID;
 
 
 /*
-elle va nous permettre de configurer the servers authorisations
+configuration authauristaions servers
  */
 @Configuration
 @EnableAuthorizationServer
 class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
-//		@Autowired
-//		private AuthenticationManager auth;
-
 		@Autowired
 		private AuthenticationManager authenticationManager;
-		/*
-		on a charger la db
-		 */
+
 		@Qualifier("dataSource")
 		@Autowired
 		private DataSource dataSource;
@@ -61,14 +56,11 @@ class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-//			endpoints.authorizationCodeServices(authorizationCodeServices()).authenticationManager(auth)
-//					.tokenStore(tokenStore()).approvalStoreDisabled().userDetailsService(userDetailsService);
 			endpoints.authenticationManager(authenticationManager);
 		}
 
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-			// Enregistrer le client OAUTH
 			clients.jdbc(dataSource)
 					.passwordEncoder(passwordEncoder)
 					.withClient(CLIENT_ID)

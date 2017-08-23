@@ -10,8 +10,10 @@ class UsersTable extends React.Component{
                 <div className="col-lg-12">
                     <div className="card">
                         <div className="card-header">
-                            <i className="fa fa-align-justify"></i> Combined All Table
+                            <i className="fa fa-align-justify"></i> Our Users
+                            <span type="button" onClick={()=>{this.props.history.push('/register')}} className="badge badge-info">New User</span>
                         </div>
+
                         <div className="card-block">
                             <table className="table table-bordered table-striped table-sm">
                                 <thead>
@@ -24,7 +26,6 @@ class UsersTable extends React.Component{
                                 </thead>
                                 <tbody>
                                 {this.props.children}
-
                                 </tbody>
                             </table>
                             <nav>

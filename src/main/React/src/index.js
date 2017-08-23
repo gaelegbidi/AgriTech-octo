@@ -99,7 +99,7 @@ const GuestRoute = ({component: Component, ...rest}) => (
         !checkAuth() ? (<Component {...props}/>) : (<Redirect to={{pathname: '/'}}/>)
     )}/>
 )
-const AdminRoute = ({component: Component, ...rest}) => (
+export const AdminRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
         checkAuthAdmin() ? (<Component {...props}/>) : (<Redirect to={{pathname: '/'}}/>)
     )}/>
