@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Entity
 public class Compaign {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -66,4 +67,5 @@ public class Compaign {
     public void setName(String name) {
         this.name = name;
     }
+
 }

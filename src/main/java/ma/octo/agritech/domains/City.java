@@ -2,10 +2,12 @@ package ma.octo.agritech.domains;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class City {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,11 +16,13 @@ public class City {
     private String ref;
     @Column(unique=true)
     private String name;
-    private Country country;
-    private Set<Village> villages;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
+    private Country country;
+
+    @OneToMany(mappedBy = "city")
+    private Set<Village> villages = new HashSet<Village>(0);
     public Country getCountry() {
         return country;
     }
@@ -27,7 +31,6 @@ public class City {
         this.country = country;
     }
 
-    @OneToMany(mappedBy = "village", cascade = CascadeType.ALL)
 
     public Set<Village> getVillages(){
         return villages;

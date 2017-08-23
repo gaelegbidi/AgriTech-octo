@@ -11,23 +11,29 @@ public class Production {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @ManyToOne()
+    @JoinColumn(name="campaign_id")
     private Compaign campaign;
-    private Product productName;
-    private String productQuantity;
+    @ManyToOne()
+    @JoinColumn(name="product_id")
+    private Product product;
+    private String quantity;
     private enum submitState {valid, submit};
+    @ManyToOne()
+    @JoinColumn(name="exploitation_id")
     private Exploitation exploitation;
+    @ManyToOne()
+    @JoinColumn(name = "farmer_id")
     private Farmer farmer;
 
-   @ManyToOne()
-   @JoinColumn(name="exploitation_id")
+
     public Exploitation getExploitation(){
        return exploitation;
    }
    public void setExploitation(Exploitation exploitation){
         this.exploitation = exploitation;
    }
-   @ManyToOne()
-    @JoinColumn(name = "farmer_id")
+
     public Farmer getFarmer(Farmer farmer){
        return farmer;
    }

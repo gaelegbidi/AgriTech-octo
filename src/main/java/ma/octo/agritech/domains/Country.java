@@ -3,11 +3,13 @@ package ma.octo.agritech.domains;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Country {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,9 +17,11 @@ public class Country {
     private String ref;
     @Column(unique=true)
     private String name;
-    private Set<City> cities;
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(  mappedBy = "country")
+    private Set<City> cities = new HashSet<City>(0);
+
+
     public Set<City> getCities() {
         return cities;
     }
@@ -25,5 +29,4 @@ public class Country {
     public void setCities(Set<City> cities) {
         this.cities = cities;
     }
-
 }
