@@ -12,6 +12,10 @@ import ConsultationProd from '../../views/ConsultationProd/';
 import SubmitEstimate from '../../views/SubmitEstimate/';
 import EditProfile from '../../views/EditProfile/';
 import {AdminRoute} from '../../index';
+import Exploitation from "../../views/Exploitation";
+import Compaign from "../../views/Compaign";
+import Product from "../../views/Product/Product";
+import Consultation from "../../views/Consultation/Consultation";
 
 class Full extends Component {
   render() {
@@ -27,7 +31,11 @@ class Full extends Component {
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
                 <AdminRoute path="/users" name="Users" component={Users}/>
                 <Route path="/consultationProd" name="Consulation Production" component={ConsultationProd}/>
+                <Route path="/exploitation" name="Exploitation" component={Exploitation}/>
                 <Route path="/submitEstimate" name="Submit Estimate" component={SubmitEstimate}/>
+                <Route path="/compaign" name="Compaign" component={Compaign}/>
+                <Route path="/product" name="Product" component={Product}/>
+                <Route path="/consultation" name="Consultation" component={Consultation}/>
                 <Route path="/editProfile/:id" name="EditProfile" component={EditProfile}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>

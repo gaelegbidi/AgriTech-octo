@@ -23,6 +23,12 @@ public class Product {
         this.image = image;
     }
 
+    public Product(String name, String ref, String description) {
+        this.name = name;
+        this.ref = ref;
+        this.description = description;
+    }
+
     public Product() {
     }
 
@@ -65,4 +71,7 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+
+
+
 }

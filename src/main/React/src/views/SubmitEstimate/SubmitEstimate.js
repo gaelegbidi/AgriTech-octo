@@ -3,11 +3,133 @@ import {apiRequest} from "../../index";
 
 class SubmitEstimate extends Component{
 
-    prodRegister = async (e) => {
+
+    constructor(props, country = null) {
+        super(props);
+        this.state = {
+
+                name: '',
+                quantity: '',
+                exploitationRef:'',
+                productRef:'',
+                compaignRef:'',
+                exploitations:[],
+                compaigns:[],
+                products:[]
+
+        };
+
+       this.loadAllExploitation();
+       this.loadAllCompaign();
+       this.loadAllProduct();
+    }
+
+    onExploitationChange =(e) =>{
+        console.log(e.target.name);
+        this.setState({
+            exploitation: e.target.value,
+        });
+    }
+    onCompaignChange =(e) =>{
+        console.log(e.target.name);
+        this.setState({
+            compaign: e.target.value,
+        });
+    }
+    onProductChange =(e) =>{
+        console.log(e.target.name);
+        this.setState({
+            product: e.target.value,
+        });
+    }
+
+    loadAllExploitation(){
+        apiRequest.headers = {};
+        apiRequest.get('/exploitations')
+            .then((response) => {
+                console.log(response.status);
+                console.log(response.data);
+                this.setState({
+                    exploitations: response.data._embedded.exploitations,
+                });
+                console.log(this.state);
+
+
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+            })
+    }
+    loadAllCompaign(){
+        apiRequest.headers = {};
+        apiRequest.get('/compaigns')
+            .then((response) => {
+                console.log(response.status);
+                console.log(response.data);
+                let c = [{
+                    name:"select compaign",
+                    ref:''
+                }].concat(response.data._embedded.compaigns);
+                this.setState({
+                    compaigns: c,
+                });
+                console.log(this.state);
+
+
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+            })
+    }
+    loadAllProduct(){
+        apiRequest.headers = {};
+        apiRequest.get('/products')
+            .then((response) => {
+                console.log(response.status);
+                console.log(response.data);
+                this.setState({
+                    products: response.data._embedded.products,
+                });
+                console.log(this.state);
+
+
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+            })
+    }
+    productionRegister = async (e) => {
         e.preventDefault();
 
         apiRequest.headers = {};
-        apiRequest.post('/productions',this.state)
+        apiRequest.post('/productions/store',this.state)
             .then((response) => {
                 console.log(response.data)
                 setTimeout(()=>{
@@ -41,32 +163,43 @@ render()
         <div className="card-block">
             <div className="form-group">
                 <label htmlFor="company">Agricol Compaign</label>
-                <input type="text" className="form-control" id="company" placeholder="the current agricol compaign"/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="vat">Farmer Name</label>
-                <input type="text" className="form-control" id="vat" placeholder="farmer name"/>
+                <div className="col-md-9">
+                    <select className="form-control" id="select" name="compaignRef"
+                            onChange={e => this.onCompaignChange(e)} defaultValue={this.state.compaignRef}>
+                        {this.state.compaigns.map((com, i) => <option key={i}
+                                                                         value={com.ref}>{com.name}</option>)}
+                    </select>
+
+                </div>
             </div>
             <div className="form-group">
                 <label htmlFor="street">Product Name</label>
-                <input type="text" className="form-control" id="street" placeholder="your product name"/>
-            </div>
-            {/*<div className="row">*/}
-                {/*<div className="form-group col-sm-8">*/}
-                    {/*<label htmlFor="city">Quantity</label>*/}
-                    {/*<input type="text" className="form-control" id="city" placeholder="Enter your city"/>*/}
-                {/*</div>*/}
-                {/*<div className="form-group col-sm-4">*/}
-                    {/*<label htmlFor="postal-code">Postal Code</label>*/}
-                    {/*<input type="text" className="form-control" id="postal-code" placeholder="Postal Code"/>*/}
-                {/*</div>*/}
-            {/*</div>*/}
+                <div className="col-md-9">
+                    <select className="form-control" id="select" name="productRef"
+                            onChange={e => this.onProductChange(e)} defaultValue={this.state.productRef}>
+                        {this.state.products.map((prod, i) => <option key={i}
+                                                                      value={prod.ref}>{prod.name}</option>)}
+                    </select>
+
+                </div>
+             </div>
             <div className="form-group">
                 <label htmlFor="country">Quantity</label>
-                <input type="text" className="form-control" id="country" placeholder="Quantity by Product unit"/>
+                <input type="text" className="form-control" id="country" name="quantity" placeholder="Quantity by Product unit"/>
+            </div>
+            <div className="form-group row">
+                <label className="col-md-3 form-control-label" htmlFor="select">Select Exploitation</label>
+                <div className="col-md-9">
+                    <select className="form-control" id="select" name="exploitationRef"
+                            onChange={e => this.onExploitationChange(e)} defaultValue={this.state.exploitationRef}>
+                        {this.state.exploitations.map((ex, i) => <option key={i}
+                                                                     value={ex.ref}>{ex.name}</option>)}
+                    </select>
+
+                </div>
             </div>
             <button type="button" className="btn btn-block btn-success"
-                    onClick={this.prodRegister}>Submit Estimation</button>
+                    onClick={this.productionRegister}>Submit Estimation</button>
         </div>
     </div>
 </div>

@@ -38,6 +38,22 @@ class Sidebar extends Component {
               <NavLink to={'/submitEstimate'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Submit Estimate</NavLink>
 
             </li>
+            <li className={this.activeRoute("/exploitation")}>
+              <NavLink to={'/exploitation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Exploitation</NavLink>
+
+            </li>
+            <li className={this.activeRoute("/product")}>
+              <NavLink to={'/product'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Product</NavLink>
+
+            </li>
+            <li className={this.activeRoute("/compaign")}>
+              <NavLink to={'/compaign'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Compaign</NavLink>
+
+            </li>
+            <li className={this.activeRoute("/consultation")}>
+                          <NavLink to={'/consultation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Consultation</NavLink>
+
+                        </li>
 
 
           </ul>

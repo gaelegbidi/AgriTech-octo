@@ -1,9 +1,12 @@
 package ma.octo.agritech.domains;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,18 +19,28 @@ public class Village {
     private String name;
     @Column(unique = true)
     private String ref;
+
     @OneToMany(mappedBy = "village")
-    private Set<Exploitation> exploitations = new HashSet<Exploitation>(0);
+    @JsonIgnore
+    private List<Exploitation> exploitations;
+
     @ManyToOne
     @JoinColumn(name = "city_id" )
     private City city;
 
+    public Village() {
+    }
 
+    public Village(String ref, String name, City city) {
+        this.name = name;
+        this.ref = ref;
+        this.city = city;
+    }
 
-    public Set<Exploitation> getExploitations(){
+    public List<Exploitation> getExploitations(){
         return exploitations;
     }
-    public void setExploitations(Set<Exploitation> exploitations){
+    public void setExploitations(List<Exploitation> exploitations){
         this.exploitations=exploitations;
     }
 
@@ -40,5 +53,27 @@ public class Village {
         this.city = city;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
+    }
 }

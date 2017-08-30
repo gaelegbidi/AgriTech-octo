@@ -10,12 +10,16 @@ public class Compaign {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date beginDate;
-    private Date endDate;
+
+    private Date beginDate= new Date();
+    private Date endDate = new Date();
     @Column(unique = true)
     private String name;
     @Column(unique = true)
     private String ref;
+
+    public Compaign() {
+    }
 
 
     public Compaign(Date beginDate, Date endDate, String name, String ref) {
@@ -25,8 +29,6 @@ public class Compaign {
         this.ref = ref;
     }
 
-    public Compaign() {
-    }
 
     public Long getId() {
         return id;

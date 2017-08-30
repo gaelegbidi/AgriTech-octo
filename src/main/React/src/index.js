@@ -62,6 +62,9 @@ const checkAuth = () => {
     if (!token) {
         return false;
     }
+    const chckAuth = ()=>{
+
+    }
 
     // try {
     //     // { exp: 12903819203 }
