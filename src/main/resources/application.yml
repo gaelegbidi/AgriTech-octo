@@ -5,6 +5,7 @@ spring:
 #    show-sql: true
 #    hibernate:
 ##    hbm2ddl-auto: validate
+
   jpa:
 #    database-plateform: org.hibernate.dialect.H2Dialect
     hibernate:
