@@ -4,12 +4,10 @@ import ma.octo.agritech.domains.Production;
 import ma.octo.agritech.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -41,5 +39,13 @@ public class ProductionApiController {
         production.setFarmer(this.farmerRepository.findOneByUsername(principal.getName()));
         this.productionRepository.save(production);
         return new ResponseEntity<>(production,OK);
+    }
+
+    @GetMapping(value = "/productions/index", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Production>> index(){
+
+
+        List<Production> prods = (List<Production>) this.productionRepository.findAll();
+        return new ResponseEntity<>(prods,OK);
     }
 }

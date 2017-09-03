@@ -24,8 +24,14 @@ class ResourceServer extends ResourceServerConfigurerAdapter {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
-					.antMatchers("/oauth/token").permitAll()
+					.antMatchers("/").permitAll()
+					.and().authorizeRequests()
+					.antMatchers("/console/**").permitAll()
+					.and().authorizeRequests()
 					.anyRequest().authenticated();
+
+			http.csrf().disable();
+			http.headers().frameOptions().disable();
 		}
 
 	}

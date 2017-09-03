@@ -11,32 +11,32 @@ public class Production {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne()
-    @JoinColumn(name="compaign_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "compaign_id")
     private Compaign compaign;
 
-    @ManyToOne()
-    @JoinColumn(name="product_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exploitation_id")
+    private Exploitation exploitation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "farmer_id")
+    private Farmer farmer;
 
     @Transient
     private String productRef;
-
-    private String quantity;
-    private enum submitState {valid, submit};
-
-    @ManyToOne()
-    @JoinColumn(name="exploitation_id")
-    private Exploitation exploitation;
-
     @Transient
     private String exploitationRef;
     @Transient
     private String compaignRef;
 
-    @ManyToOne()
-    @JoinColumn(name = "farmer_id")
-    private Farmer farmer;
+    private String quantity;
+//    private enum submitState {valid, submit};
+
 
     public Production() {
     }
@@ -45,14 +45,13 @@ public class Production {
     public Production(String compaignRef, String productRef, String quantity, String exploitationRef) {
         this.compaignRef = compaignRef;
         this.productRef = productRef;
+        this.exploitationRef = exploitationRef;
         this.quantity = quantity;
         this.exploitation = null;
-        this.exploitationRef=exploitationRef;
         this.farmer = null;
         this.product = null;
         this.compaign = null;
     }
-
 
     public Long getId() {
         return id;
@@ -78,28 +77,28 @@ public class Production {
         this.product = product;
     }
 
-    public String getProductRef() {
-        return productRef;
-    }
-
-    public void setProductRef(String productRef) {
-        this.productRef = productRef;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
     public Exploitation getExploitation() {
         return exploitation;
     }
 
     public void setExploitation(Exploitation exploitation) {
         this.exploitation = exploitation;
+    }
+
+    public Farmer getFarmer() {
+        return farmer;
+    }
+
+    public void setFarmer(Farmer farmer) {
+        this.farmer = farmer;
+    }
+
+    public String getProductRef() {
+        return productRef;
+    }
+
+    public void setProductRef(String productRef) {
+        this.productRef = productRef;
     }
 
     public String getExploitationRef() {
@@ -118,11 +117,11 @@ public class Production {
         this.compaignRef = compaignRef;
     }
 
-    public Farmer getFarmer() {
-        return farmer;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setFarmer(Farmer farmer) {
-        this.farmer = farmer;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }

@@ -27,19 +27,25 @@ class SubmitEstimate extends Component{
     onExploitationChange =(e) =>{
         console.log(e.target.name);
         this.setState({
-            exploitation: e.target.value,
+            exploitationRef: e.target.value,
         });
     }
     onCompaignChange =(e) =>{
         console.log(e.target.name);
         this.setState({
-            compaign: e.target.value,
+            compaignRef: e.target.value,
         });
     }
     onProductChange =(e) =>{
         console.log(e.target.name);
         this.setState({
-            product: e.target.value,
+            productRef: e.target.value,
+        });
+    }
+    onChange =(e) =>{
+        console.log(e.target.name);
+        this.setState({
+            [e.target.name]: e.target.value,
         });
     }
 
@@ -128,7 +134,7 @@ class SubmitEstimate extends Component{
     productionRegister = async (e) => {
         e.preventDefault();
 
-        apiRequest.headers = {};
+       console.log(this.state);
         apiRequest.post('/productions/store',this.state)
             .then((response) => {
                 console.log(response.data)
@@ -185,7 +191,9 @@ render()
              </div>
             <div className="form-group">
                 <label htmlFor="country">Quantity</label>
-                <input type="text" className="form-control" id="country" name="quantity" placeholder="Quantity by Product unit"/>
+                <input type="text" className="form-control" id="country" name="quantity"
+                       placeholder="Quantity by Product unit"
+                onChange={e => this.onChange(e)}/>
             </div>
             <div className="form-group row">
                 <label className="col-md-3 form-control-label" htmlFor="select">Select Exploitation</label>
