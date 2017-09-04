@@ -1,216 +1,221 @@
 package ma.octo.agritech.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.*;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 @Entity
 @Table(name = "USERS")
-@Inheritance(
-		strategy = InheritanceType.JOINED
-)
 public class User implements UserDetails {
-	
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	private String username;
-	private String firstName;
-	private String lastName;
-	private String email;
-	
-	//@JsonIgnore
-	private String password;
-	
-	private String phone;
-	private String address;
-	private String city;
-	private String country;
-	private String function;
-	private String society;
-	private String roles="admin";
-	
-	@Column(name = "enabled", nullable = false)
-	private boolean enabled=true;
-//	private List<GrantedAuthority> authorities;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public User() {
-	}
+    private String username;
 
-	public User(String username, String firstName, String lastName, String email, String password, String phone,
-			String address, String city, String country, String function, String society, String roles) {
-		this.username = username;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.setPassword(password);
-		this.phone = phone;
-		this.address = address;
-		this.city = city;
-		this.country = country;
-		this.function = function;
-		this.society = society;
-		this.roles = roles;
-	}
+    private String firstName;
 
-	public Long getId() {
-		return id;
-	}
+    private String lastName;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String email;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    @JsonIgnore
+    private String password;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    private String phone;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    private String address;
 
-	public String getLastName() {
-		return lastName;
-	}
+    private String city;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    private String country;
 
-	public String getEmail() {
-		return email;
-	}
+    private String function;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    private String society;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private String roles = "admin";
 
-	public String getPhone() {
-		return phone;
-	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
+    //	private List<GrantedAuthority> authorities;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Production> productions;
 
-	public String getAddress() {
-		return address;
-	}
+    public User() {
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public User(String username, String firstName, String lastName, String email, String password, String phone,
+                String address, String city, String country, String function, String society, String roles) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.setPassword(password);
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.function = function;
+        this.society = society;
+        this.roles = roles;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getFunction() {
-		return function;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setFunction(String function) {
-		this.function = function;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getSociety() {
-		return society;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setSociety(String society) {
-		this.society = society;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getRoles() {
-		return roles;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        return  authorities;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getFunction() {
+        return function;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
+    }
+
+    public String getSociety() {
+        return society;
+    }
+
+    public void setSociety(String society) {
+        this.society = society;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        return authorities;
 //		return this.getGrantedAuthoritiesByStringRoles();
-	}
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-	
-	@Override
-	public String getPassword() {
-		return password;
-	}
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	private List<GrantedAuthority> getGrantedAuthoritiesByStringRoles() {
-		List<String> roles = Arrays.asList(this.getRoles().split("\\|")); //decouper  la liste a partir de |
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-		List<GrantedAuthority> auths = new ArrayList<>();
-		for(String role : roles){
-			auths.add(new SimpleGrantedAuthority(role.toUpperCase()));
-		}
-		return auths;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private List<GrantedAuthority> getGrantedAuthoritiesByStringRoles() {
+        List<String> roles = Arrays.asList(this.getRoles().split("\\|")); //decouper  la liste a partir de |
+
+        List<GrantedAuthority> auths = new ArrayList<>();
+        for (String role : roles) {
+            auths.add(new SimpleGrantedAuthority(role.toUpperCase()));
+        }
+        return auths;
+    }
 
 }

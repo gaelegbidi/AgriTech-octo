@@ -3,9 +3,13 @@ package ma.octo.agritech.domains;
 public class UserStats {
 
     private Integer count;
+
     private Integer acheteurCount;
+
     private Integer partenaireCount;
+
     private Integer publicCount;
+
     private Integer ongCount;
 
     public UserStats() {

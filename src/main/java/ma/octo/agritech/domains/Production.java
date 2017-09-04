@@ -1,31 +1,36 @@
 package ma.octo.agritech.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PRODUCTION")
+@Table(name = "PRODUCTIONS")
 public class Production {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "compaign_id")
+    @JsonBackReference
     private Compaign compaign;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "exploitation_id")
+    @JsonBackReference
     private Exploitation exploitation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "farmer_id")
-    private Farmer farmer;
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     @Transient
     private String productRef;
@@ -35,7 +40,6 @@ public class Production {
     private String compaignRef;
 
     private String quantity;
-//    private enum submitState {valid, submit};
 
 
     public Production() {
@@ -48,7 +52,7 @@ public class Production {
         this.exploitationRef = exploitationRef;
         this.quantity = quantity;
         this.exploitation = null;
-        this.farmer = null;
+        this.user = null;
         this.product = null;
         this.compaign = null;
     }
@@ -85,12 +89,12 @@ public class Production {
         this.exploitation = exploitation;
     }
 
-    public Farmer getFarmer() {
-        return farmer;
+    public User getUser() {
+        return user;
     }
 
-    public void setFarmer(Farmer farmer) {
-        this.farmer = farmer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getProductRef() {
