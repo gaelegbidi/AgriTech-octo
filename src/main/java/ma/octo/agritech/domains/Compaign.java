@@ -5,25 +5,22 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "COMPAIGNS")
 public class Compaign {
-
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date beginDate = new Date();
-
+    private Date beginDate= new Date();
     private Date endDate = new Date();
-
     @Column(unique = true)
     private String name;
-
     @Column(unique = true)
     private String ref;
 
     public Compaign() {
     }
+
 
     public Compaign(Date beginDate, Date endDate, String name, String ref) {
         this.beginDate = beginDate;
@@ -31,6 +28,7 @@ public class Compaign {
         this.name = name;
         this.ref = ref;
     }
+
 
     public Long getId() {
         return id;
@@ -60,16 +58,16 @@ public class Compaign {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getRef() {
         return ref;
     }
 
     public void setRef(String ref) {
         this.ref = ref;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

@@ -44,7 +44,7 @@ public class DatabaseLoader implements CommandLineRunner {
                 Country country = this.countryRepo.save(new Country("co" + p, "country" + p));
                 int randomNumC = 2 + (int) (Math.random() * 10);
                 for (int i = 0; i < randomNumC; i++) {
-                    City city = this.cityRepo.save(new City("c" + p + i, "city" + p + i, country));
+                    City city = this.cityRepo.save(new City("c" + p + i, "city"+ p + i, country));
                     int randomNumV = 2 + (int) (Math.random() * 10);
                     for (int j = 0; j < randomNumV; j++) {
 

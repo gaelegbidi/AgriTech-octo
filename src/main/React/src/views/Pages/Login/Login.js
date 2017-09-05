@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {authRequest} from "../../../index";
 import {apiRequest} from "../../../index";
 
+import {Router} from 'react-router-dom'
+
 class Login extends Component {
 
     state = {
@@ -18,22 +20,38 @@ class Login extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        authRequest.post('/oauth/token', 'grant_type=password&username=' + this.state.username +
-            '&password=' + this.state.password)
+
+        authRequest.headers = {};
+        authRequest.post('/oauth/token', 'grant_type=password&username=' + this.state.username + 
+            '&password='+this.state.password)
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('refresh_token', response.data.refresh_token);
                 localStorage.setItem('expired_in', response.data.expired_in);
 
-                apiRequest.get("/users/info").then((res) => {
+                apiRequest.get("/users/info").then((res)=>{
                     console.log(res.data);
                     localStorage.setItem('username', res.data.username);
                     localStorage.setItem('roles', res.data.roles);
                 });
 
-                setTimeout(() => {
+                console.log(response.data);
+                setTimeout(()=>{
+
                     this.props.history.push(`/`)
-                }, 100);
+                },100);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
             })
 
     };
@@ -79,11 +97,10 @@ class Login extends Component {
                                 <div className="card card-inverse card-primary py-5 d-md-down-none"
                                      style={{width: 44 + '%'}}>
                                     <div className="card-block text-center">
-                                        <img src="./img/logo.png" width="80%" alt="AgriTech-Octo"/>
+                                        <img src="./img/logo.png" width="80%" alt="AgriTech-Octo" />
                                         <div>
                                             <h2>---</h2>
-                                            <p>Voila comment nous aidons les agriculteurs avec la technologie à
-                                                octo!!!.</p>
+                                            <p>Voila comment nous aidons les agriculteurs avec la technologie à octo!!!.</p>
                                             <button type="button" className="btn btn-primary active mt-3">About Us
                                             </button>
                                         </div>

@@ -1,6 +1,7 @@
 package ma.octo.agritech.controllers;
 
 import ma.octo.agritech.domains.City;
+import ma.octo.agritech.domains.Country;
 import ma.octo.agritech.domains.Village;
 import ma.octo.agritech.repositories.CityRepository;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "api")
+@RequestMapping(value="api")
 public class CityApiController {
     private CityRepository cityRepository;
 

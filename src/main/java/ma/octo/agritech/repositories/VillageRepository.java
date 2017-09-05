@@ -6,6 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface VillageRepository extends CrudRepository<Village, Long> {
-
     Village findOneByRef(String Ref);
 }

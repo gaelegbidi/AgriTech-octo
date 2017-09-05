@@ -4,23 +4,23 @@ package ma.octo.agritech.domains;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PRODUCTS")
 public class Product {
-
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+    private Long id;
+    private String name;
     @Column(unique = true)
     private String ref;
-
-    @Column(unique = true)
-    private String name;
-
     private String description;
     private String image;
 
-    public Product() {
+    public Product(String name, String ref, String description, String image) {
+        this.name = name;
+        this.ref = ref;
+        this.description = description;
+        this.image = image;
     }
 
     public Product(String name, String ref, String description) {
@@ -29,11 +29,7 @@ public class Product {
         this.description = description;
     }
 
-    public Product(String name, String ref, String description, String image) {
-        this.name = name;
-        this.ref = ref;
-        this.description = description;
-        this.image = image;
+    public Product() {
     }
 
     public Long getId() {
@@ -44,20 +40,20 @@ public class Product {
         this.id = id;
     }
 
-    public String getRef() {
-        return ref;
-    }
-
-    public void setRef(String ref) {
-        this.ref = ref;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
     }
 
     public String getDescription() {
@@ -75,4 +71,7 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+
+
+
 }
