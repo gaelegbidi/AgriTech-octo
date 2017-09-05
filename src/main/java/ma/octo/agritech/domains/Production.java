@@ -1,6 +1,10 @@
 package ma.octo.agritech.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCTIONS")
@@ -25,6 +29,10 @@ public class Production {
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user = new User();
+
+    @OneToMany(mappedBy = "production")
+    @JsonIgnore
+    private List<Negociation> negociations = new ArrayList<>();
 
 
     private Double quantity;

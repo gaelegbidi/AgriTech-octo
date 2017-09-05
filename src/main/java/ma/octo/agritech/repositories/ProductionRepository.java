@@ -4,5 +4,6 @@ import ma.octo.agritech.domains.Production;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ProductionRepository extends CrudRepository<Production, Long> {
+    Production findOneById (Long id);
 
 }

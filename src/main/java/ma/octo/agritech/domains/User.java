@@ -3,6 +3,7 @@ package ma.octo.agritech.domains;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -53,6 +54,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Production> productions;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Negociation> negociations = new ArrayList<>();
 
     public User() {
     }
