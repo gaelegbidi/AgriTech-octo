@@ -1,0 +1,6 @@
+{
+  "name": "ManageProductions",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ManageProductions.js"
+}

@@ -16,6 +16,7 @@ import Exploitation from "../../views/Exploitation";
 import Compaign from "../../views/Compaign";
 import Product from "../../views/Product/Product";
 import Consultation from "../../views/Consultation/Consultation";
+import ManageProductions from "../../views/ManageProductions/ManageProductions";
 
 class Full extends Component {
   render() {
@@ -36,6 +37,7 @@ class Full extends Component {
                 <Route path="/compaign" name="Compaign" component={Compaign}/>
                 <Route path="/product" name="Product" component={Product}/>
                 <Route path="/consultation" name="Consultation" component={Consultation}/>
+                <Route path="/manageProductions" name="ManageProductions" component={ManageProductions}/>
                 <Route path="/editProfile/:id" name="EditProfile" component={EditProfile}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>

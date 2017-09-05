@@ -1,47 +1,50 @@
 package ma.octo.agritech.controllers;
 
+import ma.octo.agritech.domains.Production;
 import ma.octo.agritech.domains.User;
 import ma.octo.agritech.domains.UserStats;
-import ma.octo.agritech.repositories.UserRepository;
-
-import org.springframework.http.ResponseEntity;
+import ma.octo.agritech.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
-@RequestMapping(value = "api")
+@RequestMapping(value = "api/users")
 public class UserApiController {
 
-	private final UserRepository repository;
+    @Autowired
+    private UserService userService;
 
-	public UserApiController(UserRepository repository) {
-		this.repository = repository;
-	}
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public List<User> index() {
+        return this.userService.getAll();
+    }
 
-	@PreAuthorize("#oauth2.hasScope('api:read')")
-	@GetMapping(value = "/users/info", produces = APPLICATION_JSON_VALUE)
-	public User getUserInfo(final Principal principal) {
+    @GetMapping(value = "/productions", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public List<Production> getMyProductions() {
+        return this.userService.getAllAuthProductions();
+    }
 
-		return repository.findOneByUsername(principal.getName());
+//    @PreAuthorize("#oauth2.hasScope('api:read')")
+    @GetMapping(value = "/info", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public User getUserInfo(final Principal principal) {
 
-	}
+        return userService.getByUsername(principal.getName());
 
-	@PreAuthorize("#oauth2.hasScope('api:read')")
-	@GetMapping(value = "/users/stats", produces = APPLICATION_JSON_VALUE)
-	public UserStats userCount() {
+    }
 
-		List<User> users = (List<User>) this.repository.findAll();
-		List<User> usersAcheteur = (List<User>) this.repository.findByRoles("Acheteur");
-		List<User> usersPartenaire = (List<User>) this.repository.findByRoles("Partenaire");
-		List<User> usersONG = (List<User>) this.repository.findByRoles("ONG");
-		List<User> usersPublic = (List<User>) this.repository.findByRoles("Public");
-		UserStats userStats = new UserStats(users.size(), usersAcheteur.size(), usersPartenaire.size(),
-				usersPublic.size(), usersONG.size());
-		return userStats;
-	}
+    @GetMapping(value = "/stats", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public UserStats userCount() {
+
+        return this.userService.getUserStats();
+    }
+
+
 }

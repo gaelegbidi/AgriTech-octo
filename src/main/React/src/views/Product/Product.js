@@ -27,9 +27,7 @@ class Product extends Component {
     productRegister = async (e) => {
         e.preventDefault();
 
-        apiRequest.headers = {};
         console.log("----");
-        console.dir(this);
         apiRequest.post('/products',this.state)
             .then((response) => {
                 console.log(response);

@@ -42,7 +42,7 @@ class UsersTableItem extends React.Component {
             <tr>
                 <td>{this.props.user.username}</td>
                 <td>{this.props.user.email}</td>
-                <td>{this.props.user.roles}</td>
+                <td>{this.props.user.roles.map(r=>r.ref).join('|')}</td>
                 <td>
                     <button className="btn-primary" style={{marginRight:"15px"}}><i className="icon-eye">
 

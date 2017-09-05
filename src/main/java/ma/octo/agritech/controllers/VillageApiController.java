@@ -1,15 +1,13 @@
 package ma.octo.agritech.controllers;
 
-import ma.octo.agritech.repositories.VillageRepository;
+import ma.octo.agritech.services.VillageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="api")
+@RequestMapping(value = "api")
 public class VillageApiController {
-    private VillageRepository villageRepository;
-
-    public VillageApiController(VillageRepository villageRepository) {
-        this.villageRepository = villageRepository;
-    }
+    @Autowired
+    private VillageService villageService;
 }

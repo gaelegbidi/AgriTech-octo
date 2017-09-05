@@ -3,54 +3,40 @@ package ma.octo.agritech.domains;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PRODUCTION")
+@Table(name = "PRODUCTIONS")
 public class Production {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "compaign_id")
-    private Compaign compaign;
+    private Compaign compaign = new Compaign();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "product_id")
-    private Product product;
+    private Product product = new Product();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "exploitation_id")
-    private Exploitation exploitation;
+    private Exploitation exploitation = new Exploitation();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "farmer_id")
-    private Farmer farmer;
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user = new User();
 
-    @Transient
-    private String productRef;
-    @Transient
-    private String exploitationRef;
-    @Transient
-    private String compaignRef;
 
-    private String quantity;
-//    private enum submitState {valid, submit};
+    private Double quantity;
 
 
     public Production() {
     }
 
 
-    public Production(String compaignRef, String productRef, String quantity, String exploitationRef) {
-        this.compaignRef = compaignRef;
-        this.productRef = productRef;
-        this.exploitationRef = exploitationRef;
+    public Production(Double quantity) {
+
         this.quantity = quantity;
-        this.exploitation = null;
-        this.farmer = null;
-        this.product = null;
-        this.compaign = null;
     }
 
     public Long getId() {
@@ -85,43 +71,19 @@ public class Production {
         this.exploitation = exploitation;
     }
 
-    public Farmer getFarmer() {
-        return farmer;
+    public User getUser() {
+        return user;
     }
 
-    public void setFarmer(Farmer farmer) {
-        this.farmer = farmer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getProductRef() {
-        return productRef;
-    }
-
-    public void setProductRef(String productRef) {
-        this.productRef = productRef;
-    }
-
-    public String getExploitationRef() {
-        return exploitationRef;
-    }
-
-    public void setExploitationRef(String exploitationRef) {
-        this.exploitationRef = exploitationRef;
-    }
-
-    public String getCompaignRef() {
-        return compaignRef;
-    }
-
-    public void setCompaignRef(String compaignRef) {
-        this.compaignRef = compaignRef;
-    }
-
-    public String getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 }

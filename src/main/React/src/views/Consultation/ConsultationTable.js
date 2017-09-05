@@ -15,9 +15,10 @@ class ConsultationTable extends React.Component{
                                 <thead>
                                 <tr>
                                     <th>Product Name</th>
-                                    <th>Farmer Name</th>
+                                    <th>User Name</th>
                                     <th>Compaign Name</th>
                                     <th>Exploitation Name</th>
+                                    <th>Quantity</th>
                                 </tr>
                                 </thead>
                                 <tbody>

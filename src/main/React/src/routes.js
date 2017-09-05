@@ -7,6 +7,7 @@ const routes = {
   '/submitEstimate': 'SubmitEstimate',
   '/editProfile': 'EditProfile',
   '/consultation': 'Consultation',
+  '/manageProductions': 'ManageProductions',
   '/product': 'Product',
   '/Compaign': 'Compaign'
 

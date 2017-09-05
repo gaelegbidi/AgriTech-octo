@@ -1,147 +1,133 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {apiRequest} from "../../index";
 
-class SubmitEstimate extends Component{
+class SubmitEstimate extends Component {
 
 
-    constructor(props, country = null) {
+    constructor(props) {
         super(props);
         this.state = {
-
-                name: '',
-                quantity: '',
-                exploitationRef:'',
-                productRef:'',
-                compaignRef:'',
-                exploitations:[],
-                compaigns:[],
-                products:[]
+            isMounted: false,
+            name: '',
+            quantity: '',
+            exploitationRef: '',
+            productRef: '',
+            compaignRef: '',
+            exploitations: [],
+            compaigns: [],
+            products: []
 
         };
 
-       this.loadAllExploitation();
-       this.loadAllCompaign();
-       this.loadAllProduct();
+        this.loadAllExploitation();
+        this.loadAllCompaign();
+        this.loadAllProduct();
     }
 
-    onExploitationChange =(e) =>{
-        console.log(e.target.name);
-        this.setState({
-            exploitationRef: e.target.value,
-        });
-    }
-    onCompaignChange =(e) =>{
-        console.log(e.target.name);
-        this.setState({
-            compaignRef: e.target.value,
-        });
-    }
-    onProductChange =(e) =>{
-        console.log(e.target.name);
-        this.setState({
-            productRef: e.target.value,
-        });
-    }
-    onChange =(e) =>{
-        console.log(e.target.name);
-        this.setState({
-            [e.target.name]: e.target.value,
-        });
+    componentDidMount() {
+        this.setState({isMounted: true})
     }
 
-    loadAllExploitation(){
-        apiRequest.headers = {};
+    componentWillUnmount() {
+        this.setState({isMounted: false})
+    }
+
+    onExploitationChange = (e) => {
+        console.log(e.target.name);
+        if (this.state.isMounted) {
+            this.setState({
+                exploitationRef: e.target.value,
+            });
+        }
+
+    };
+    onCompaignChange = (e) => {
+        console.log(e.target.name);
+        if (this.state.isMounted) {
+            this.setState({
+                compaignRef: e.target.value,
+            });
+        }
+    };
+    onProductChange = (e) => {
+        console.log(e.target.name);
+        if (this.state.isMounted) {
+            this.setState({
+                productRef: e.target.value,
+            });
+        }
+    };
+    onChange = (e) => {
+        console.log(e.target.name);
+        if (this.state.isMounted) {
+            this.setState({
+                [e.target.name]: e.target.value,
+            });
+        }
+    };
+
+    loadAllExploitation = () => {
         apiRequest.get('/exploitations')
             .then((response) => {
-                console.log(response.status);
                 console.log(response.data);
-                this.setState({
-                    exploitations: response.data._embedded.exploitations,
-                });
-                console.log(this.state);
 
-
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                } else if (error.request) {
-                    console.log(error.request);
-                } else {
-                    console.log('Error', error.message);
+                let explo = [{
+                    name: "Select Exploitation",
+                    ref: ''
+                }].concat(response.data);
+                if (this.state.isMounted) {
+                    this.setState({
+                        exploitations: explo,
+                    });
                 }
-                console.log(error.config);
-            })
-    }
-    loadAllCompaign(){
-        apiRequest.headers = {};
+
+            });
+    };
+
+    loadAllCompaign() {
         apiRequest.get('/compaigns')
             .then((response) => {
-                console.log(response.status);
                 console.log(response.data);
                 let c = [{
-                    name:"select compaign",
-                    ref:''
-                }].concat(response.data._embedded.compaigns);
-                this.setState({
-                    compaigns: c,
-                });
-                console.log(this.state);
-
-
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                } else if (error.request) {
-                    console.log(error.request);
-                } else {
-                    console.log('Error', error.message);
+                    name: "select compaign",
+                    ref: ''
+                }].concat(response.data);
+                if (this.state.isMounted) {
+                    this.setState({
+                        compaigns: c,
+                    });
                 }
-                console.log(error.config);
-            })
+
+            });
     }
-    loadAllProduct(){
-        apiRequest.headers = {};
+
+    loadAllProduct() {
         apiRequest.get('/products')
             .then((response) => {
-                console.log(response.status);
                 console.log(response.data);
-                this.setState({
-                    products: response.data._embedded.products,
-                });
-                console.log(this.state);
-
-
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                } else if (error.request) {
-                    console.log(error.request);
-                } else {
-                    console.log('Error', error.message);
+                let prod = [{
+                    name: "Select Product",
+                    ref: ''
+                }].concat(response.data);
+                if (this.state.isMounted) {
+                    this.setState({
+                        products: prod,
+                    });
                 }
-                console.log(error.config);
-            })
+            });
     }
-    productionRegister = async (e) => {
+
+    productionRegister = (e) => {
         e.preventDefault();
 
-       console.log(this.state);
-        apiRequest.post('/productions/store',this.state)
+        console.log(this.state);
+        apiRequest.post('/productions', this.state)
             .then((response) => {
                 console.log(response.data)
-                setTimeout(()=>{
+                setTimeout(() => {
                     alert("prod bien enregistrer")
                     this.props.history.push(`/`)
-                },100);
+                }, 100);
             })
             .catch((error) => {
                 if (error.response) {
@@ -157,62 +143,69 @@ class SubmitEstimate extends Component{
             })
 
     };
-render()
-    {
-    return(
-        <div className="row justify-content-center">
-    <div className="col-sm-6">
-    <div className="card">
-        <div className="card-header">
-            <strong>Submit</strong> <small>Estimate</small>
-        </div>
-        <div className="card-block">
-            <div className="form-group">
-                <label htmlFor="company">Agricol Compaign</label>
-                <div className="col-md-9">
-                    <select className="form-control" id="select" name="compaignRef"
-                            onChange={e => this.onCompaignChange(e)} defaultValue={this.state.compaignRef}>
-                        {this.state.compaigns.map((com, i) => <option key={i}
-                                                                         value={com.ref}>{com.name}</option>)}
-                    </select>
 
+    render() {
+        return (
+            <div className="row justify-content-center">
+                <div className="col-sm-6">
+                    <div className="card">
+                        <div className="card-header">
+                            <strong>Submit</strong>
+                            <small>Estimate</small>
+                        </div>
+                        <div className="card-block">
+                            <div className="form-group">
+                                <label htmlFor="company">Agricol Compaign</label>
+                                <div className="col-md-9">
+                                    <select className="form-control" id="select" name="compaignRef"
+                                            onChange={e => this.onCompaignChange(e)}
+                                            defaultValue={this.state.compaignRef}>
+                                        {this.state.compaigns.map((com, i) => <option key={i}
+                                                                                      value={com.ref}>{com.name}</option>)}
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="street">Product Name</label>
+                                <div className="col-md-9">
+                                    <select className="form-control" id="select" name="productRef"
+                                            onChange={e => this.onProductChange(e)}
+                                            defaultValue={this.state.productRef}>
+                                        {this.state.products.map((prod, i) => <option key={i}
+                                                                                      value={prod.ref}>{prod.name}</option>)}
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="country">Quantity</label>
+                                <input type="text" className="form-control" id="country" name="quantity"
+                                       placeholder="Quantity by Product unit"
+                                       onChange={e => this.onChange(e)}/>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-md-3 form-control-label" htmlFor="select">Select
+                                    Exploitation</label>
+                                <div className="col-md-9">
+                                    <select className="form-control" id="select" name="exploitationRef"
+                                            onChange={e => this.onExploitationChange(e)}
+                                            defaultValue={this.state.exploitationRef}>
+                                        {this.state.exploitations.map((ex, i) => <option key={i}
+                                                                                         value={ex.ref}>{ex.name}</option>)}
+                                    </select>
+
+                                </div>
+                            </div>
+                            <button type="button" className="btn btn-block btn-success"
+                                    onClick={this.productionRegister}>Submit Estimation
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="form-group">
-                <label htmlFor="street">Product Name</label>
-                <div className="col-md-9">
-                    <select className="form-control" id="select" name="productRef"
-                            onChange={e => this.onProductChange(e)} defaultValue={this.state.productRef}>
-                        {this.state.products.map((prod, i) => <option key={i}
-                                                                      value={prod.ref}>{prod.name}</option>)}
-                    </select>
-
-                </div>
-             </div>
-            <div className="form-group">
-                <label htmlFor="country">Quantity</label>
-                <input type="text" className="form-control" id="country" name="quantity"
-                       placeholder="Quantity by Product unit"
-                onChange={e => this.onChange(e)}/>
-            </div>
-            <div className="form-group row">
-                <label className="col-md-3 form-control-label" htmlFor="select">Select Exploitation</label>
-                <div className="col-md-9">
-                    <select className="form-control" id="select" name="exploitationRef"
-                            onChange={e => this.onExploitationChange(e)} defaultValue={this.state.exploitationRef}>
-                        {this.state.exploitations.map((ex, i) => <option key={i}
-                                                                     value={ex.ref}>{ex.name}</option>)}
-                    </select>
-
-                </div>
-            </div>
-            <button type="button" className="btn btn-block btn-success"
-                    onClick={this.productionRegister}>Submit Estimation</button>
-        </div>
-    </div>
-</div>
-        </div>
-)
+        )
+    }
 }
-}
+
 export default SubmitEstimate;

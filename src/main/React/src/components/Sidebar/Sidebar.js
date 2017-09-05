@@ -26,8 +26,8 @@ class Sidebar extends Component {
               <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="icon-speedometer"></i> Dashboard </NavLink>
             </li>
             <li className={this.activeRoute("/users")}>
-                {localStorage.getItem('roles')==='admin'?<NavLink to={'/users'} className="nav-link" activeClassName="active">
-                  <i className="icon-people"></i> Users</NavLink>:null}
+               <NavLink to={'/users'} className="nav-link" activeClassName="active">
+                  <i className="icon-people"></i> Users</NavLink>
 
             </li>
             <li className={this.activeRoute("/consultationProd")}>
@@ -52,6 +52,10 @@ class Sidebar extends Component {
             </li>
             <li className={this.activeRoute("/consultation")}>
                           <NavLink to={'/consultation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Consultation</NavLink>
+
+                        </li>
+            <li className={this.activeRoute("/manageProductions")}>
+                          <NavLink to={'/manageProductions'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Manage Productions</NavLink>
 
                         </li>
 
