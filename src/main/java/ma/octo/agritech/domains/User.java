@@ -1,9 +1,12 @@
 package ma.octo.agritech.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ma.octo.agritech.Requests.StoreUserRequest;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -36,6 +39,7 @@ public class User {
     private String function;
 
     private String society;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -107,6 +111,19 @@ public class User {
         this.function = user.getFunction();
         this.roles = user.getRoles();
         this.society = user.getSociety();
+    }
+
+    public User(StoreUserRequest storeUserRequest) {
+        this.username=storeUserRequest.getUsername();
+        this.firstName=storeUserRequest.getFirstname();
+        this.lastName=storeUserRequest.getLastname();
+        this.email=storeUserRequest.getEmail();
+        this.password=storeUserRequest.getPassword();
+        this.phone=storeUserRequest.getPhone();
+        this.address=storeUserRequest.getAdress();
+        this.city=storeUserRequest.getCity();
+        this.function=storeUserRequest.getFunction();
+        this.society=storeUserRequest.getSociete();
     }
 
     public Long getId() {

@@ -94,4 +94,12 @@ public class Production {
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
+
+    public List<Negociation> getNegociations() {
+        return negociations;
+    }
+
+    public void setNegociations(List<Negociation> negociations) {
+        this.negociations = negociations;
+    }
 }

@@ -23,6 +23,11 @@ public class ProductApiController {
     public Product store(@RequestBody Product product) {
         return this.productService.save(product);
     }
+//
+//    @PostMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+//    public Product store(@RequestBody StoreProductRequest storeProductRequest) {
+//        return this.productService.saveByStoreRequest(storeProductRequest);
+//    }
 
 
 }

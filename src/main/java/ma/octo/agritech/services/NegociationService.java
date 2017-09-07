@@ -27,7 +27,7 @@ public class NegociationService {
         Negociation negociation = new Negociation();
 
         negociation.setPrice(storeNegociationRequest.getPrice());
-        negociation.setProduction(this.productionRepository.findOneById(storeNegociationRequest.getProductionId()));
+        negociation.setProduction(this.productionRepository.findOne(storeNegociationRequest.getProductionId()));
         Authentication authentication = this.authenticationFacade.getAuthentication();
 
         if(authentication != null){

@@ -1,24 +1,19 @@
 import React,{Component} from 'react'
-import ManageProductionsTableItem from './ManageProductionsTableItem'
 
-class ManageProductionsTable extends React.Component{
+class NegociationTable extends React.Component{
     render(){
         return(
             <div className="row">
                 <div className="col-lg-12">
                     <div className="card">
-
                         <div className="card-block">
                             <table className="table table-bordered table-striped table-sm">
                                 <thead>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>User Name</th>
-                                    <th>Compaign Name</th>
-                                    <th>Exploitation Name</th>
-                                    <th>Quantity</th>
-                                    <th>Action</th>
-                                    <th>See Price</th>
+                                    <th>User who are Interest</th>
+                                    <th>Email</th>
+                                    <th>Price</th>
+                                    <th>Call him</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -45,4 +40,4 @@ class ManageProductionsTable extends React.Component{
     }
 
 }
-export default ManageProductionsTable;
+export default NegociationTable;

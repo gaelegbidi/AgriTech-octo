@@ -1,0 +1,6 @@
+{
+  "name": "NegociationTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./NegociationTable.js"
+}

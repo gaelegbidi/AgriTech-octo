@@ -41,8 +41,6 @@ class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     }
 
 
-
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager);

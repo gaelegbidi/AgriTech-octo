@@ -1,12 +1,14 @@
 package ma.octo.agritech.controllers;
 
 import ma.octo.agritech.Requests.StoreProductionRequest;
+import ma.octo.agritech.domains.Negociation;
 import ma.octo.agritech.domains.Production;
 import ma.octo.agritech.services.ProductionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -25,5 +27,10 @@ public class ProductionApiController {
     @PostMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public Production store(@RequestBody StoreProductionRequest storeProductionRequest) {
         return this.productionService.saveByStoreRequest(storeProductionRequest);
+    }
+
+    @GetMapping(value = "/{id}/negociations",produces ={ MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public List<Negociation> getNegociationByProduction (@PathVariable("id") Long productionId){
+        return this.productionService.getNegociationByProductionId(productionId);
     }
 }

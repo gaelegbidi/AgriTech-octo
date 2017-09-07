@@ -7,26 +7,28 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Date;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-
-    private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
-    private final VillageRepository villageRepo;
-    private final CityRepository cityRepo;
-    private final CountryRepository countryRepo;
-
-
     @Autowired
-    public DatabaseLoader(RoleRepository roleRepository, UserRepository userRepository, VillageRepository villageRepo, CityRepository cityRepo, CountryRepository countryRepo) {
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
-        this.villageRepo = villageRepo;
-        this.cityRepo = cityRepo;
-        this.countryRepo = countryRepo;
-    }
+    private RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private VillageRepository villageRepo;
+    @Autowired
+    private CityRepository cityRepo;
+    @Autowired
+    private CountryRepository countryRepo;
+    @Autowired
+    private CompaignRepository compaignRepository;
+    @Autowired
+    private ExploitationRepository exploitationRepository;
+    @Autowired
+    private ProductRepository productRepository;
+
 
     @Override
     public void run(String... strings) throws Exception {
@@ -48,7 +50,7 @@ public class DatabaseLoader implements CommandLineRunner {
         this.userRepository.save(new User("frodo4", "Baggins", "ring bearer", "dddd3", "dede3", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePartenaire)));
         this.userRepository.save(new User("frodo5", "Baggins", "ring bearer", "dddd4", "dede4", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleOng)));
         this.userRepository.save(new User("frodo6", "Baggins", "ring bearer", "dddd5", "dede5", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePublic)));
-        this.userRepository.save(new User("frodo7", "Baggins", "ring bearer", "dddd6", "dede5", "didi", "cc", "jiji", "hello", "grgr", "koko"));
+        this.userRepository.save(new User("frodo7", "Baggins", "ring bearer", "dddd6", "dede5", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleOng)));
 
         if (countryRepo.count() < 1) {
             int randomNumP = 2 + (int) (Math.random() * 10);
@@ -65,6 +67,26 @@ public class DatabaseLoader implements CommandLineRunner {
                 }
             }
         }
+
+        this.compaignRepository.save(new Compaign(new Date(), new Date(), "camp1", "rCamp1"));
+        this.compaignRepository.save(new Compaign(new Date(), new Date(), "camp2", "rCamp2"));
+
+        this.productRepository.save(new Product("prod1","p1","prod1Des"));
+        this.productRepository.save(new Product("prod2","p2","prod2Des"));
+
+//       Exploitation e1 = new Exploitation("exref00","exploitation1",154.25,125.02,1475.54);
+//        e1.setVillage(this.villageRepo.findOne((long) 1));
+//        e1.setUser(this.userRepository.findOne((long )1));
+//        exploitationRepository.save(e1);
+//       Exploitation e2 =new Exploitation("exref01","exploitation2",154.25,125.02,1475.54);
+//        e2.setVillage(this.villageRepo.findOne((long) 1));
+//        e1.setUser(this.userRepository.findOne((long )1));
+//        exploitationRepository.save(e2);
+//       Exploitation e3 =new Exploitation("exref02","exploitation3",154.25,125.02,1475.54);
+//        e3.setVillage(this.villageRepo.findOne((long) 1));
+//        e1.setUser(this.userRepository.findOne((long )1));
+//        exploitationRepository.save(e3);
     }
+
 
 }

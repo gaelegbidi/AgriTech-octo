@@ -19,6 +19,7 @@ class ConsultationTable extends React.Component{
                                     <th>Compaign Name</th>
                                     <th>Exploitation Name</th>
                                     <th>Quantity</th>
+                                    <th>See More</th>
                                 </tr>
                                 </thead>
                                 <tbody>

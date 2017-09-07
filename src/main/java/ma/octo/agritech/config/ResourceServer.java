@@ -53,9 +53,6 @@ class ResourceServer extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
-//                .and()
-//                .formLogin().permitAll();
-//         .formLogin().loginPage("myLoginPageUrl")permitAll();
     }
 
     @Bean

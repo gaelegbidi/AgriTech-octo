@@ -1,10 +1,11 @@
 package ma.octo.agritech.services;
 
+import ma.octo.agritech.Requests.StoreUserRequest;
 import ma.octo.agritech.config.IAuthenticationFacade;
-import ma.octo.agritech.domains.CustomUserDetails;
-import ma.octo.agritech.domains.Production;
-import ma.octo.agritech.domains.User;
-import ma.octo.agritech.domains.UserStats;
+import ma.octo.agritech.domains.*;
+import ma.octo.agritech.repositories.NegociationRepository;
+import ma.octo.agritech.repositories.ProductionRepository;
+import ma.octo.agritech.repositories.RoleRepository;
 import ma.octo.agritech.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,13 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+   private RoleRepository roleRepository;
+    @Autowired
     private IAuthenticationFacade authenticationFacade;
+    @Autowired
+    private ProductionRepository productionRepository;
+    @Autowired
+    private NegociationRepository negociationRepository;
 
 
     public List<User> getAll() {
@@ -32,15 +40,16 @@ public class UserService {
     }
 
     public List<Production> getAllAuthProductions() {
-
-        Authentication authentication = this.authenticationFacade.getAuthentication();
-        Optional<User> userOptional = this.userRepository.findOneByUsername(authentication.getName());
-        userOptional.orElseThrow(() -> new UsernameNotFoundException("Username Not Found"));
-        User user = userOptional.map(CustomUserDetails::new).get();
-
-        return user.getProductions();
+        return this.userRepository.findProductionsByUsername(this.getAuthUsername());
     }
 
+    public String getAuthUsername(){
+        Authentication authentication = this.authenticationFacade.getAuthentication();
+        return authentication.getName();
+    }
+    public User getAuth(){
+        return this.getByUsername(this.getAuthUsername());
+    }
     /**
      * Get Users statistic
      *
@@ -59,5 +68,20 @@ public class UserService {
         Optional<User> userOptional = this.userRepository.findOneByUsername(username);
         userOptional.orElseThrow(() -> new UsernameNotFoundException("Username Not Found"));
         return userOptional.map(User::new).get();
+    }
+
+    public User saveByStoreRequest(StoreUserRequest storeUserRequest) {
+        User user = new User(storeUserRequest);
+//        Role role = this.roleRepository.findOneByRef(storeUserRequest.getRoleRef());
+        List<Role> roles = new ArrayList<>();
+        String[] rolesTab = storeUserRequest.getRoleRef().split("|");
+        for (int i = 0; i < rolesTab.length; i++) {
+            roles.add(this.roleRepository.findOneByRef(rolesTab[i]));
+            user.setRoles(roles);
+            this.userRepository.save(user);
+            return user;
+        }
+        this.userRepository.save(user);
+        return  user;
     }
 }

@@ -101,7 +101,8 @@ class SubmitEstimate extends Component {
             });
     }
 
-    loadAllProduct() {
+    loadAllProduct=()=> {
+        console.log(localStorage.getItem('role'));
         apiRequest.get('/products')
             .then((response) => {
                 console.log(response.data);
@@ -126,7 +127,7 @@ class SubmitEstimate extends Component {
                 console.log(response.data)
                 setTimeout(() => {
                     alert("prod bien enregistrer")
-                    this.props.history.push(`/`)
+                    // this.props.history.push(`/`)
                 }, 100);
             })
             .catch((error) => {
@@ -157,7 +158,7 @@ class SubmitEstimate extends Component {
                             <div className="form-group">
                                 <label htmlFor="company">Agricol Compaign</label>
                                 <div className="col-md-9">
-                                    <select className="form-control" id="select" name="compaignRef"
+                                    <select required className="form-control" id="select" name="compaignRef"
                                             onChange={e => this.onCompaignChange(e)}
                                             defaultValue={this.state.compaignRef}>
                                         {this.state.compaigns.map((com, i) => <option key={i}
@@ -169,7 +170,7 @@ class SubmitEstimate extends Component {
                             <div className="form-group">
                                 <label htmlFor="street">Product Name</label>
                                 <div className="col-md-9">
-                                    <select className="form-control" id="select" name="productRef"
+                                    <select required className="form-control" id="select" name="productRef"
                                             onChange={e => this.onProductChange(e)}
                                             defaultValue={this.state.productRef}>
                                         {this.state.products.map((prod, i) => <option key={i}
@@ -180,7 +181,7 @@ class SubmitEstimate extends Component {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="country">Quantity</label>
-                                <input type="text" className="form-control" id="country" name="quantity"
+                                <input required type="text" className="form-control" id="country" name="quantity"
                                        placeholder="Quantity by Product unit"
                                        onChange={e => this.onChange(e)}/>
                             </div>
@@ -188,7 +189,7 @@ class SubmitEstimate extends Component {
                                 <label className="col-md-3 form-control-label" htmlFor="select">Select
                                     Exploitation</label>
                                 <div className="col-md-9">
-                                    <select className="form-control" id="select" name="exploitationRef"
+                                    <select required className="form-control" id="select" name="exploitationRef"
                                             onChange={e => this.onExploitationChange(e)}
                                             defaultValue={this.state.exploitationRef}>
                                         {this.state.exploitations.map((ex, i) => <option key={i}

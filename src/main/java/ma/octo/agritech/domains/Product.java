@@ -18,7 +18,7 @@ public class Product {
     private String name;
 
     private String description;
-    private String image;
+    private byte[] image;
 
     public Product() {
     }
@@ -29,7 +29,7 @@ public class Product {
         this.description = description;
     }
 
-    public Product(String name, String ref, String description, String image) {
+    public Product(String name, String ref, String description, byte[] image) {
         this.name = name;
         this.ref = ref;
         this.description = description;
@@ -68,11 +68,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 }

@@ -1,19 +1,48 @@
 import React, {Component} from "react";
 import {apiRequest} from "../../index";
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import NegociationTable from "../Negociation/NegociationTable";
+import NegociationTableItem from "../Negociation/NegociationTableItem";
 
 class ManageProductionsTableItem extends React.Component {
 
-    editProfile = (e) =>{
-        e.preventDefault();
-        window.location.href="/editProfile/"+this.props.user.id
+    constructor(props) {
+        super(props);
+        // noinspection JSAnnotator
+        this.state = {
+            warning: false,
+            negociations:[],
+        };
+        this.toggleWarning = this.toggleWarning.bind(this);
 
     }
 
-    deleteUser = (e)=> {
+    loadAllNegociations() {
+        apiRequest.headers = {};
+        apiRequest.get('productions/'+this.props.production.id+'/negociations')
+            .then((response) => {
+                console.log(response.data);
+                this.setState({negociations: response.data});
+            })
+    }
+
+
+    toggleWarning() {
+        this.setState({
+            warning: !this.state.warning
+        });
+        this.loadAllNegociations();
+    }
+
+    editProduction = (e) =>{
         e.preventDefault();
-            console.log(this.props.user.id);
-            console.log(e.target);
-        apiRequest.delete('/users/'+this.props.user.id)
+        window.location.href="/submitEstimate/"+this.props.production.id
+
+    }
+
+    deleteProduction = (e)=> {
+        e.preventDefault();
+        apiRequest.delete('/productions/'+this.props.production.id)
             .then((response) => {
                 console.log(response.status);
                 console.log(response.data);
@@ -49,11 +78,28 @@ class ManageProductionsTableItem extends React.Component {
                     <button className="btn-primary" style={{marginRight:"15px"}}><i className="icon-eye">
 
                     </i></button>
-                    <button className="btn-warning" style={{marginRight:"15px"}} onClick={this.editProfile}><i className="icon-note">
+                    <button className="btn-warning" style={{marginRight:"15px"}} onClick={this.editProduction}><i className="icon-note">
 
                     </i></button>
-                    <button className="btn-danger" style={{marginRight:"15px"}} onClick={this.deleteUser}><i className="icon-trash">
+                    <button className="btn-danger" style={{marginRight:"15px"}} onClick={this.deleteProduction}><i className="icon-trash">
 
+                    </i></button>
+                </td>
+                <td>
+                    <button className="btn-primary" onClick={this.toggleWarning} style={{marginRight: "15px"}}><i
+                        className="icon-anchor">
+                        <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
+                               className={'modal-warning modal-lg ' + this.props.className}>
+                            <ModalHeader toggle={this.toggleWarning}>Modal title</ModalHeader>
+                            <ModalBody>
+                                <NegociationTable>
+                                    {this.state.negociations.map((n, i) => <NegociationTableItem key={i} negociation={n}/>)}
+                                </NegociationTable>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="secondary" onClick={this.toggleWarning}>Cancel</Button>
+                            </ModalFooter>
+                        </Modal>
                     </i></button>
                 </td>
             </tr>

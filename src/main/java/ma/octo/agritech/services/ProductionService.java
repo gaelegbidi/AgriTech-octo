@@ -2,11 +2,9 @@ package ma.octo.agritech.services;
 
 import ma.octo.agritech.Requests.StoreProductionRequest;
 import ma.octo.agritech.config.IAuthenticationFacade;
+import ma.octo.agritech.domains.Negociation;
 import ma.octo.agritech.domains.Production;
-import ma.octo.agritech.repositories.CompaignRepository;
-import ma.octo.agritech.repositories.ExploitationRepository;
-import ma.octo.agritech.repositories.ProductRepository;
-import ma.octo.agritech.repositories.ProductionRepository;
+import ma.octo.agritech.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -28,6 +26,8 @@ public class ProductionService {
     private UserService userService;
     @Autowired
     private IAuthenticationFacade authenticationFacade;
+    @Autowired
+    private NegociationRepository negociationRepository;
 
     public List<Production> getAll() {
         List<Production> productions = new ArrayList<>();
@@ -50,5 +50,10 @@ public class ProductionService {
         this.productionRepository.save(production);
         return production;
 
+    }
+
+    public List<Negociation> getNegociationByProductionId(Long productionId) {
+//          return this.productionRepository.findAllNegociationsByProductionId(productionId);
+        return this.negociationRepository.findAllByProduction(this.productionRepository.findOne(productionId));
     }
 }

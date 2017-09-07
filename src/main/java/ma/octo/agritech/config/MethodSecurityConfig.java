@@ -7,8 +7,14 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 
 @Configuration
+/**
+ * en activant @enableGlobaleSecuriy on pourra securisé notre application juste avec de annotation java
+ */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
+    /**
+     * cette methode pour authoriser la securité dans l'application
+     */
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         return new OAuth2MethodSecurityExpressionHandler();

@@ -159,11 +159,13 @@ class EditProfile extends Component {
                     <div className="input-group mb-3">
                         <span className="input-group-addon"><i className="icon-user"></i></span>
                         <select name="roles" onChange = { e => this.onChange(e)} defaultValue={this.state.roles} >
-                            <option value="Acheteur" >Agriculteur Acheteur</option>
-                            <option value="Partenaire" >Partenaire</option>
-                            <option value="Admin">Administrateur</option>
-                            <option value="Public" >Pouvoirs Public</option>
-                            <option value="ONG" >ONG</option>
+                            <option value="ROLE_ACHETEUR" >Agriculteur Acheteur</option>
+                            <option value="ROLE_PARTENAIRE" >Partenaire</option>
+                            <option value="ROLE_ADMIN">Administrateur</option>
+                            <option value="ROLE_PUBLIC" >Pouvoirs Public</option>
+                            <option value="ROLE_ONG" >ONG</option>
+                            <option value="ROLE_AGRICULTEUR" >Agriculteur</option>
+                            <option value="ROLE_ELEVEUR" >Eleveur</option>
                         </select>
                     </div>
                   <button type="button" className="btn btn-block btn-success"

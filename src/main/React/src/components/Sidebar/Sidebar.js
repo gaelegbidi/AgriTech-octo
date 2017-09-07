@@ -34,30 +34,33 @@ class Sidebar extends Component {
               <NavLink to={'/consultationProd'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Consult Production</NavLink>
 
             </li>
-            <li className={this.activeRoute("/submitEstimate")}>
+              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'||'ROLE_ELEVEUR'? (<li className={this.activeRoute("/submitEstimate")}>
               <NavLink to={'/submitEstimate'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Submit Estimate</NavLink>
 
-            </li>
-            <li className={this.activeRoute("/exploitation")}>
+            </li> ): null}
+
+              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'||'ROLE_ELEVEUR'? ( <li className={this.activeRoute("/exploitation")}>
               <NavLink to={'/exploitation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Exploitation</NavLink>
+            </li>): null}
 
-            </li>
-            <li className={this.activeRoute("/product")}>
+              {localStorage.getItem('roles')==='ROLE_ADMIN'? ( <li className={this.activeRoute("/product")}>
               <NavLink to={'/product'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Product</NavLink>
+            </li>): null}
 
-            </li>
-            <li className={this.activeRoute("/compaign")}>
+              {localStorage.getItem('roles')==='ROLE_ADMIN'? (<li className={this.activeRoute("/compaign")}>
               <NavLink to={'/compaign'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Compaign</NavLink>
+            </li>): null}
 
-            </li>
             <li className={this.activeRoute("/consultation")}>
                           <NavLink to={'/consultation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Consultation</NavLink>
 
-                        </li>
-            <li className={this.activeRoute("/manageProductions")}>
+            </li>
+
+              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'||'ROLE_ELEVEUR'? (<li className={this.activeRoute("/manageProductions")}>
                           <NavLink to={'/manageProductions'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Manage Productions</NavLink>
 
-                        </li>
+                        </li>): null}
+
 
 
           </ul>
