@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
+import {apiRequest} from "../../index";
 import UsersTableItem from './UsersTableItem'
+import {Button, DropdownItem} from "reactstrap";
 
 
 
@@ -38,6 +40,7 @@ class UsersTable extends React.Component{
                                     <li className="page-item"><a className="page-link" href="#">3</a></li>
                                     <li className="page-item"><a className="page-link" href="#">4</a></li>
                                     <li className="page-item"><a className="page-link" href="#">Next</a></li>
+                                    {/*<li><Button type="button" className="page-item" onClick={()=>{this.props.history.push('/register')}}>Add</Button></li>*/}
                                 </ul>
                             </nav>
                         </div>

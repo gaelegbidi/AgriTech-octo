@@ -72,15 +72,13 @@ public class UserService {
 
     public User saveByStoreRequest(StoreUserRequest storeUserRequest) {
         User user = new User(storeUserRequest);
-//        Role role = this.roleRepository.findOneByRef(storeUserRequest.getRoleRef());
+       Role role = this.roleRepository.findOneByRef(storeUserRequest.getRoleRef());
         List<Role> roles = new ArrayList<>();
         String[] rolesTab = storeUserRequest.getRoleRef().split("|");
         for (int i = 0; i < rolesTab.length; i++) {
             roles.add(this.roleRepository.findOneByRef(rolesTab[i]));
             user.setRoles(roles);
-            this.userRepository.save(user);
-            return user;
-        }
+           }
         this.userRepository.save(user);
         return  user;
     }

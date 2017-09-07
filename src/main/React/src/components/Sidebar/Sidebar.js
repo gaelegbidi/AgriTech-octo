@@ -25,38 +25,38 @@ class Sidebar extends Component {
             <li className="nav-item">
               <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="icon-speedometer"></i> Dashboard </NavLink>
             </li>
-            <li className={this.activeRoute("/users")}>
+              {localStorage.getItem('roles')==='ROLE_ADMIN'?(<li className={this.activeRoute("/users")}>
                <NavLink to={'/users'} className="nav-link" activeClassName="active">
                   <i className="icon-people"></i> Users</NavLink>
 
-            </li>
+            </li>):null}
             <li className={this.activeRoute("/consultationProd")}>
-              <NavLink to={'/consultationProd'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Consult Production</NavLink>
+              <NavLink to={'/consultationProd'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>Production Statistics</NavLink>
 
             </li>
-              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'||'ROLE_ELEVEUR'? (<li className={this.activeRoute("/submitEstimate")}>
-              <NavLink to={'/submitEstimate'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Submit Estimate</NavLink>
+              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'? (<li className={this.activeRoute("/submitEstimate")}>
+              <NavLink to={'/submitEstimate'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Add Estimation</NavLink>
 
             </li> ): null}
 
-              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'||'ROLE_ELEVEUR'? ( <li className={this.activeRoute("/exploitation")}>
-              <NavLink to={'/exploitation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Exploitation</NavLink>
+              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'? ( <li className={this.activeRoute("/exploitation")}>
+              <NavLink to={'/exploitation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> New Exploitation</NavLink>
             </li>): null}
 
               {localStorage.getItem('roles')==='ROLE_ADMIN'? ( <li className={this.activeRoute("/product")}>
-              <NavLink to={'/product'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Product</NavLink>
+              <NavLink to={'/product'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Add Product</NavLink>
             </li>): null}
 
               {localStorage.getItem('roles')==='ROLE_ADMIN'? (<li className={this.activeRoute("/compaign")}>
-              <NavLink to={'/compaign'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Compaign</NavLink>
+              <NavLink to={'/compaign'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>Add Compaign</NavLink>
             </li>): null}
 
             <li className={this.activeRoute("/consultation")}>
-                          <NavLink to={'/consultation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Consultation</NavLink>
+                          <NavLink to={'/consultation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>See All Productions</NavLink>
 
             </li>
 
-              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'||'ROLE_ELEVEUR'? (<li className={this.activeRoute("/manageProductions")}>
+              {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'? (<li className={this.activeRoute("/manageProductions")}>
                           <NavLink to={'/manageProductions'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Manage Productions</NavLink>
 
                         </li>): null}

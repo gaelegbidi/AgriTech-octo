@@ -35,6 +35,7 @@ public class UserApiController {
         return this.userService.getAll();
     }
 
+    @PreAuthorize("hasRole('ROLE_AGRICULTEUR')")
     @GetMapping(value = "/productions", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public List<Production> getMyProductions() {
         return this.userService.getAllAuthProductions();
@@ -59,9 +60,9 @@ public class UserApiController {
         return this.userService.getUserStats();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public User store(@RequestBody StoreUserRequest storeUserRequest) {
-
         return this.userService.saveByStoreRequest(storeUserRequest);
     }
 

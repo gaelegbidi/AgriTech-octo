@@ -42,15 +42,19 @@ public class DatabaseLoader implements CommandLineRunner {
         this.roleRepository.save(roleOng);
         Role rolePublic = new Role("ROLE_PUBLIC", "Public");
         this.roleRepository.save(rolePublic);
-        User userAdmin = new User("frodo", "Baggins", "ring bearer", "dddd", "dede", "didi", "cc", "jiji", "hello", "grgr", "koko");
+        Role roleAgriculteur= new Role("ROLE_AGRICULTEUR","Agriculteur");
+        this.roleRepository.save(roleAgriculteur);
+        Role roleEleveur = new Role("ROLE_ELEVEUR", "Eleveur" );
+        this.roleRepository.save(roleEleveur);
+        User userAdmin = new User("frodo", "Baggins", "ring bearer", "dddd", "dede", "0698745125", "cc", "jiji", "hello", "grgr", "koko");
         userAdmin.setRoles(Arrays.asList(roleAdmin));
         this.userRepository.save(userAdmin);
-        this.userRepository.save(new User("frodo1", "Baggins", "ring bearer", "dddd1", "dede1", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAcheteur)));
-        this.userRepository.save(new User("frodo2", "Baggins", "ring bearer", "dddd2", "dede2", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAcheteur)));
-        this.userRepository.save(new User("frodo4", "Baggins", "ring bearer", "dddd3", "dede3", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePartenaire)));
-        this.userRepository.save(new User("frodo5", "Baggins", "ring bearer", "dddd4", "dede4", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleOng)));
-        this.userRepository.save(new User("frodo6", "Baggins", "ring bearer", "dddd5", "dede5", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePublic)));
-        this.userRepository.save(new User("frodo7", "Baggins", "ring bearer", "dddd6", "dede5", "didi", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleOng)));
+        this.userRepository.save(new User("frodo1", "Baggins", "ring bearer", "dddd1", "dede1", "0698437968", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAcheteur)));
+        this.userRepository.save(new User("frodo2", "Baggins", "ring bearer", "dddd2", "dede2", "0698437965", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAgriculteur)));
+        this.userRepository.save(new User("frodo4", "Baggins", "ring bearer", "dddd3", "dede3", "0695437968", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePartenaire)));
+        this.userRepository.save(new User("frodo5", "Baggins", "ring bearer", "dddd4", "dede4", "0694537968", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleOng)));
+        this.userRepository.save(new User("frodo6", "Baggins", "ring bearer", "dddd5", "dede5", "0698432068", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePublic)));
+        this.userRepository.save(new User("frodo7", "Baggins", "ring bearer", "dddd6", "dede5", "0698437900", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAgriculteur)));
 
         if (countryRepo.count() < 1) {
             int randomNumP = 2 + (int) (Math.random() * 10);
