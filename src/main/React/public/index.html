@@ -25,7 +25,11 @@
 
     <!-- Main styles for this application -->
     <link href="%PUBLIC_URL%/css/style.css" rel="stylesheet">
+    <link href="%PUBLIC_URL%/css/custom.css" rel="stylesheet">
+    <!--<script type="javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAr5gBIqpShebEDbC0QVspsUT2QP07xpY&libraries=places"></script>-->
+    <script>function initMap() { console.log('lib loaded') }</script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAr5gBIqpShebEDbC0QVspsUT2QP07xpY&libraries=places&**callback=initMap**"></script>
   </head>
 
   <!-- BODY options, add following classes to body to change options
@@ -64,3 +68,4 @@
     -->
   </body>
 </html>
+

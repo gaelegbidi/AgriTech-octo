@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {apiRequest} from "../../index";
+import Notifications, {notify} from 'react-notify-toast';
 import update from 'react-addons-update';
 
 class Compaign extends Component {
@@ -139,6 +140,7 @@ class Compaign extends Component {
                 console.log(response);
                 setTimeout(()=>{
                     alert("compaign bien enregistrer")
+                    // notify.show('Toasty!');
                     // this.props.history.push(`/`)
                 },100);
             })
@@ -161,6 +163,7 @@ class Compaign extends Component {
     render() {
         return (
             <div className="row justify-content-center">
+                <Notifications/>
                 <div className="col-sm-6">
                     <div className="card">
                         <div className="card-header">
