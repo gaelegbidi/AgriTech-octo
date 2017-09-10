@@ -1,12 +1,10 @@
 package ma.octo.agritech.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ma.octo.agritech.Requests.StoreUserRequest;
+import ma.octo.agritech.requests.StoreUserRequest;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -40,6 +38,8 @@ public class User {
 
     private String society;
 
+    private String image;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -67,7 +67,7 @@ public class User {
     }
 
     public User(String username, String firstName, String lastName, String email, String password, String phone,
-                String address, String city, String country, String function, String society) {
+                String address, String city, String country, String function, String society, String image) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -79,10 +79,11 @@ public class User {
         this.country = country;
         this.function = function;
         this.society = society;
+        this.image = image;
     }
 
     public User(String username, String firstName, String lastName, String email, String password, String phone,
-                String address, String city, String country, String function, String society, List<Role> roles) {
+                String address, String city, String country, String function, String society, String image, List<Role> roles) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -95,6 +96,7 @@ public class User {
         this.function = function;
         this.society = society;
         this.roles = roles;
+        this.image = image;
     }
 
     public User(User user) {
@@ -111,19 +113,21 @@ public class User {
         this.function = user.getFunction();
         this.roles = user.getRoles();
         this.society = user.getSociety();
+        this.image = user.getImage();
     }
 
     public User(StoreUserRequest storeUserRequest) {
-        this.username=storeUserRequest.getUsername();
-        this.firstName=storeUserRequest.getFirstname();
-        this.lastName=storeUserRequest.getLastname();
-        this.email=storeUserRequest.getEmail();
-        this.password=storeUserRequest.getPassword();
-        this.phone=storeUserRequest.getPhone();
-        this.address=storeUserRequest.getAdress();
-        this.city=storeUserRequest.getCity();
-        this.function=storeUserRequest.getFunction();
-        this.society=storeUserRequest.getSociete();
+        this.username = storeUserRequest.getUsername();
+        this.firstName = storeUserRequest.getFirstname();
+        this.lastName = storeUserRequest.getLastname();
+        this.email = storeUserRequest.getEmail();
+        this.password = storeUserRequest.getPassword();
+        this.phone = storeUserRequest.getPhone();
+        this.address = storeUserRequest.getAdress();
+        this.city = storeUserRequest.getCity();
+        this.function = storeUserRequest.getFunction();
+        this.society = storeUserRequest.getSociete();
+        this.image = storeUserRequest.getImage();
     }
 
     public Long getId() {
@@ -244,5 +248,45 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public List<Negociation> getNegociations() {
+        return negociations;
+    }
+
+    public void setNegociations(List<Negociation> negociations) {
+        this.negociations = negociations;
+    }
+
+    public boolean hasRole(String roleRef) {
+        for (Role role:this.roles) {
+            if(role.getRef().equals(roleRef)){
+                return true;
+            }
+
+        }
+        return false;
+    }
+    public boolean hasRole(Role role) {
+
+        return this.hasRole(role.getRef());
+    }
+    public boolean hasRole(Long roleId) {
+
+        for (Role role:this.roles) {
+            if(role.getId()==(roleId)){
+                return true;
+            }
+
+        }
+        return false;
     }
 }

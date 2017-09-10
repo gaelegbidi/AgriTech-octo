@@ -1,6 +1,8 @@
 package ma.octo.agritech;
 
 
+import ma.octo.agritech.storage.StorageProperties;
+import ma.octo.agritech.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class Application {
 
     public static final String RESOURCE_ID = "agritech-resource";
@@ -22,11 +25,18 @@ public class Application {
 
 
     @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+            storageService.deleteAll();
+            storageService.init();
+        };
+    }
+
+    @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             System.out.println("App ready ");
         };
     }
-
 
 }

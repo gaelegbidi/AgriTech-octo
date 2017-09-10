@@ -42,19 +42,19 @@ public class DatabaseLoader implements CommandLineRunner {
         this.roleRepository.save(roleOng);
         Role rolePublic = new Role("ROLE_PUBLIC", "Public");
         this.roleRepository.save(rolePublic);
-        Role roleAgriculteur= new Role("ROLE_AGRICULTEUR","Agriculteur");
+        Role roleAgriculteur = new Role("ROLE_AGRICULTEUR", "Agriculteur");
         this.roleRepository.save(roleAgriculteur);
-        Role roleEleveur = new Role("ROLE_ELEVEUR", "Eleveur" );
+        Role roleEleveur = new Role("ROLE_ELEVEUR", "Eleveur");
         this.roleRepository.save(roleEleveur);
-        User userAdmin = new User("frodo", "Baggins", "ring bearer", "dddd", "dede", "0698745125", "cc", "jiji", "hello", "grgr", "koko");
+        User userAdmin = new User("admin", "Baggins", "ring bearer", "admin@gmail.com", "admin", "0698745125", "Agdal", "jiji", "Maroc", "informaticien", "koko","http://lorempixel.com/200/200/people/1/agri-tech/");
         userAdmin.setRoles(Arrays.asList(roleAdmin));
         this.userRepository.save(userAdmin);
-        this.userRepository.save(new User("frodo1", "Baggins", "ring bearer", "dddd1", "dede1", "0698437968", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAcheteur)));
-        this.userRepository.save(new User("frodo2", "Baggins", "ring bearer", "dddd2", "dede2", "0698437965", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAgriculteur)));
-        this.userRepository.save(new User("frodo4", "Baggins", "ring bearer", "dddd3", "dede3", "0695437968", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePartenaire)));
-        this.userRepository.save(new User("frodo5", "Baggins", "ring bearer", "dddd4", "dede4", "0694537968", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleOng)));
-        this.userRepository.save(new User("frodo6", "Baggins", "ring bearer", "dddd5", "dede5", "0698432068", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(rolePublic)));
-        this.userRepository.save(new User("frodo7", "Baggins", "ring bearer", "dddd6", "dede5", "0698437900", "cc", "jiji", "hello", "grgr", "koko", Arrays.asList(roleAgriculteur)));
+        this.userRepository.save(new User("gael", "Baggins", "ring bearer", "gael@gmail.com", "123", "0698437968", "cc", "Lome", "Togo", "Informaticien", "koko","http://lorempixel.com/200/200/people/1/agri-tech/", Arrays.asList(roleAcheteur)));
+        this.userRepository.save(new User("ahmed", "Baggins", "ring bearer", "ahmed@gmail.com", "123", "0698437965", "cc", "rabat", "Maroc", "Ingenieur Mecanique", "koko","http://lorempixel.com/200/200/people/1/agri-tech/", Arrays.asList(roleAgriculteur)));
+        this.userRepository.save(new User("aliAgritech", "Baggins", "ring bearer", "ali@gmail.com", "123", "0695437968", "cc", "Tunis", "Tunisie", "Aeronaute", "koko","http://lorempixel.com/200/200/people/1/agri-tech/", Arrays.asList(rolePartenaire)));
+        this.userRepository.save(new User("francine", "Baggins", "ring bearer", "francise@gmail.com", "123", "0694537968", "cc", "Dakar", "Senegal", "Commercant", "koko","http://lorempixel.com/200/200/people/1/agri-tech/", Arrays.asList(roleOng)));
+        this.userRepository.save(new User("matina", "Baggins", "ring bearer", "matina@gmail.com", "123", "0698432068", "cc", "Franceville", "Gabon", "Secretaire", "koko","http://lorempixel.com/200/200/people/1/agri-tech/", Arrays.asList(rolePublic)));
+        this.userRepository.save(new User("eli", "Baggins", "ring bearer", "eli@gmail.com", "123", "0698437900", "cc", "Cotonou", "Benin", "financier", "koko","http://lorempixel.com/200/200/people/1/agri-tech/", Arrays.asList(roleAgriculteur)));
 
         if (countryRepo.count() < 1) {
             int randomNumP = 2 + (int) (Math.random() * 10);
@@ -75,8 +75,8 @@ public class DatabaseLoader implements CommandLineRunner {
         this.compaignRepository.save(new Compaign(new Date(), new Date(), "camp1", "rCamp1"));
         this.compaignRepository.save(new Compaign(new Date(), new Date(), "camp2", "rCamp2"));
 
-        this.productRepository.save(new Product("prod1","p1","prod1Des"));
-        this.productRepository.save(new Product("prod2","p2","prod2Des"));
+        this.productRepository.save(new Product("prod1", "p1", "prod1Des"));
+        this.productRepository.save(new Product("prod2", "p2", "prod2Des"));
 
 //       Exploitation e1 = new Exploitation("exref00","exploitation1",154.25,125.02,1475.54);
 //        e1.setVillage(this.villageRepo.findOne((long) 1));

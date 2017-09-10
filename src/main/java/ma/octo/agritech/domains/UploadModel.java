@@ -1,7 +1,5 @@
 package ma.octo.agritech.domains;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class UploadModel {
 
     private String extraField;

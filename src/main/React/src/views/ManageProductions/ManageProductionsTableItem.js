@@ -34,6 +34,7 @@ class ManageProductionsTableItem extends React.Component {
         this.loadAllNegociations();
     }
 
+
     editProduction = (e) =>{
         e.preventDefault();
         window.location.href="/submitEstimate/"+this.props.production.id
@@ -90,7 +91,7 @@ class ManageProductionsTableItem extends React.Component {
                         className="icon-anchor">
                         <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
                                className={'modal-warning modal-lg ' + this.props.className}>
-                            <ModalHeader toggle={this.toggleWarning}>Modal title</ModalHeader>
+                            <ModalHeader toggle={this.toggleWarning}>My Price Panel</ModalHeader>
                             <ModalBody>
                                 <NegociationTable>
                                     {this.state.negociations.map((n, i) => <NegociationTableItem key={i} negociation={n}/>)}

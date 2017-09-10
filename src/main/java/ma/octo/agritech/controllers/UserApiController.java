@@ -1,11 +1,11 @@
 package ma.octo.agritech.controllers;
 
-import ma.octo.agritech.Requests.StoreUserRequest;
-import ma.octo.agritech.domains.Negociation;
 import ma.octo.agritech.domains.Production;
 import ma.octo.agritech.domains.User;
 import ma.octo.agritech.domains.UserStats;
-import ma.octo.agritech.services.StorageService;
+import ma.octo.agritech.requests.EditProfileUserRequest;
+import ma.octo.agritech.requests.StoreUserRequest;
+import ma.octo.agritech.requests.UpdateUserRequest;
 import ma.octo.agritech.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,12 +19,6 @@ import java.util.List;
 @RequestMapping(value = "api/users")
 public class UserApiController {
 
-//    private final StorageService storageService;
-//
-//    @Autowired
-//    public UserApiController(StorageService storageService) {
-//        this.storageService = storageService;
-//    }
 
     @Autowired
     private UserService userService;
@@ -41,17 +35,42 @@ public class UserApiController {
         return this.userService.getAllAuthProductions();
     }
 
-//    @GetMapping(value = "/negociations", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-//    public List<Negociation> getMyNegociations() {
-//        return this.userService.getAllAuthNegociations();
-//    }
 
-//    @PreAuthorize("#oauth2.hasScope('api:read')")
     @GetMapping(value = "/info", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public User getUserInfo(final Principal principal) {
 
         return userService.getByUsername(principal.getName());
 
+    }
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public User show(@PathVariable("id") Long id) {
+
+        return userService.getById(id);
+
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public User update(@PathVariable("id")  Long id, @RequestBody UpdateUserRequest updateUserRequest) {
+
+        return userService.saveByUpdateRequest(id, updateUserRequest);
+
+    }
+
+    @PutMapping(value = "/editProfile", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public User editProfile( @RequestBody EditProfileUserRequest editProfileUserRequest) {
+
+        return userService.saveByEditProfileRequest(editProfileUserRequest);
+
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public void destroy(@PathVariable("id")  Long id) {
+         this.userService.deleteById(id);
     }
 
     @GetMapping(value = "/stats", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -65,5 +84,6 @@ public class UserApiController {
     public User store(@RequestBody StoreUserRequest storeUserRequest) {
         return this.userService.saveByStoreRequest(storeUserRequest);
     }
+
 
 }

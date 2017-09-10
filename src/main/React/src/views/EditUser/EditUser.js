@@ -2,33 +2,61 @@ import React, { Component } from 'react';
 import {apiRequest} from "../../index";
 import {Router} from 'react-router-dom'
 
-class EditProfile extends Component {
+class EditUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
 
+                username: '',
                 firstName: '',
                 lastName: '',
+                email: '',
+                password: '',
                 phone: '',
                 address: '',
                 city: '',
                 country: '',
                 function: '',
                 society: '',
-                image:''
+                roles:[],
+                roleRef: '' ,
+                roleTabs:[],
+
                     };
         console.log(props)
-        apiRequest.get("/users/info").then((response) => {
+        apiRequest.get("/users/"+props.match.params.id).then((response) => {
             console.log(response.data)
-            this.setState(response.data);
+            let user = response.data;
+            user.roleRef=user.roles.map(r=>r.ref).join('|')
+            this.setState(user);
 
-            console.log(this.state);
+        })
+
+        apiRequest.get("/roles").then((response) => {
+            console.log(response.data)
+            this.setState({
+                roleTabs:response.data
+            });
 
         })
 
 
     }
+
+    onRolesChange = (e) => {
+        console.log(e.target.name,e.target.value);
+        console.log(document.getElementById("mySelect").length);
+        let selects = document.getElementById("mySelect");
+        var selected1 = [];
+        for (var i = 0; i < selects.length; i++) {
+            if (selects.options[i].selected) selected1.push(selects.options[i].value)
+        }
+        console.log(selected1.join("|"))
+        this.setState({
+            [e.target.name]:selected1.join("|"),
+        });
+    };
 
     onChange = (e) => {
         this.setState({
@@ -36,14 +64,15 @@ class EditProfile extends Component {
         });
     };
 
-    editUserProfile = async (e) => {
+    editUser = async (e) => {
         e.preventDefault();
-        apiRequest.put('/users/editProfile', this.state)
+        apiRequest.headers = {};
+        apiRequest.put('/users/'+ this.state.id ,this.state)
             .then((response) => {
             console.log(response.data)
                 setTimeout(()=>{
                 alert("user bien modifier")
-                     this.props.history.push(`/`)
+                     this.props.history.push(`/users`)
                 },100);
             })
             .catch((error) => {
@@ -72,6 +101,13 @@ class EditProfile extends Component {
                 <div className="card-block p-4">
                   <h1>Edition</h1>
                   <p className="text-muted">Edit your account</p>
+                  <div className="input-group mb-3">
+                    <span className="input-group-addon"><i className="icon-user"></i></span>
+                    <input type="text" className="form-control" placeholder="Username"
+                           name="username"
+                           onChange={e => this.onChange(e)}
+                           value={this.state.username}/>
+                  </div>
                     <div className="input-group mb-3">
                     <span className="input-group-addon"><i className="icon-user"></i></span>
                     <input type="text" className="form-control" placeholder="Firstname"
@@ -86,6 +122,24 @@ class EditProfile extends Component {
                            onChange={e => this.onChange(e)}
                            value={this.state.lastName}/>
                   </div>
+                  <div className="input-group mb-3">
+                    <span className="input-group-addon">@</span>
+                    <input type="text" className="form-control" placeholder="Email"
+                    name="email"
+                           onChange={e => this.onChange(e)}
+                           value={this.state.email}/>
+                  </div>
+                  {/*<div className="input-group mb-3">*/}
+                    {/*<span className="input-group-addon"><i className="icon-lock"></i></span>*/}
+                    {/*<input type="password" className="form-control" placeholder="Password"*/}
+                    {/*name="password"*/}
+                           {/*onChange={e => this.onChange(e)}*/}
+                           {/*value={this.state.password}/>*/}
+                  {/*</div>*/}
+                  {/*<div className="input-group mb-4">*/}
+                    {/*<span className="input-group-addon"><i className="icon-lock"></i></span>*/}
+                    {/*<input type="password" className="form-control" placeholder="Repeat password"/>*/}
+                  {/*</div>*/}
                     <div className="input-group mb-3">
                         <span className="input-group-addon"><i className="icon-user"></i></span>
                         <input type="text" className="form-control" placeholder="Phone"
@@ -128,8 +182,17 @@ class EditProfile extends Component {
                                onChange={e => this.onChange(e)}
                                value={this.state.society}/>
                     </div>
+                    <div className="input-group mb-3">
+                        <span className="input-group-addon"><i className="icon-user"></i></span>
+                        <select multiple  className="form-control" id="mySelect" name="roleRef"
+                                onChange={e => this.onRolesChange(e)}
+                                defaultValue={this.state.roleRef}>
+                            {this.state.roleTabs.map((r, i) => <option key={i}
+                                                                    value={r.ref}>{r.name}</option>)}
+                        </select>
+                    </div>
                   <button type="button" className="btn btn-block btn-success"
-                          onClick={this.editUserProfile}>Edit Profile</button>
+                          onClick={this.editUser}>Edit User</button>
                 </div>
               </div>
             </div>
@@ -142,4 +205,4 @@ class EditProfile extends Component {
         }
       }
 
-export default EditProfile;
+export default EditUser;

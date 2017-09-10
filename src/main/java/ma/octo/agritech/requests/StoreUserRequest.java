@@ -1,6 +1,4 @@
-package ma.octo.agritech.Requests;
-
-import javax.management.relation.Role;
+package ma.octo.agritech.requests;
 
 public class StoreUserRequest {
     private String username;
@@ -15,8 +13,9 @@ public class StoreUserRequest {
     private String function;
     private String societe;
     private String roleRef;
+    private String image;
 
-    public StoreUserRequest(String username, String firstname, String lastname, String email, String password, String phone, String adress, String city, String country, String function, String societe, String roleRef) {
+    public StoreUserRequest(String username, String firstname, String lastname, String email, String password, String phone, String adress, String city, String country, String function, String societe, String roleRef, String image) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -29,6 +28,7 @@ public class StoreUserRequest {
         this.function = function;
         this.societe = societe;
         this.roleRef = roleRef;
+        this.image = image;
     }
 
     public StoreUserRequest() {
@@ -128,5 +128,13 @@ public class StoreUserRequest {
 
     public void setRoleRef(String roleRef) {
         this.roleRef = roleRef;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

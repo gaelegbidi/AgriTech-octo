@@ -79,17 +79,17 @@ class Header extends Component {
                         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                             <button onClick={this.toggle} className="nav-link dropdown-toggle" data-toggle="dropdown"
                                     type="button" aria-haspopup="true" aria-expanded={this.state.dropdownOpen}>
-                                <img src={'img/avatars/6.jpg'} className="img-avatar" alt="avatar"/>
+                                <img src={localStorage.getItem('image')} className="img-avatar" alt="avatar"/>
                                 <span className="d-md-down-none">{localStorage.getItem('username')}</span>
                             </button>
 
                             <DropdownMenu className="dropdown-menu-right">
                                 <DropdownItem header className="text-center"><strong>Account</strong></DropdownItem>
 
-                                <DropdownItem onClick={()=>{this.props.history.push('/register')}}><i className="fa fa-bell-o"></i> Register<span
-                                    className="badge badge-info">42</span></DropdownItem>
+                                <DropdownItem onClick={()=>{this.props.history.push('/editProfile')}}><i className="fa fa-bell-o"></i> Edit Profile<span
+                                    className="badge badge-info"></span></DropdownItem>
                                 <DropdownItem><i className="fa fa-envelope-o"></i> Messages<span
-                                    className="badge badge-success">42</span></DropdownItem>
+                                    className="badge badge-success"></span></DropdownItem>
                                 {/*<DropdownItem><i className="fa fa-tasks"></i> Tasks<span className="badge badge-danger">42</span></DropdownItem>*/}
                                 {/*<DropdownItem><i className="fa fa-comments"></i> Comments<span*/}
                                     {/*className="badge badge-warning">42</span></DropdownItem>*/}

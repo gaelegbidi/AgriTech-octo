@@ -7,7 +7,7 @@ import request from 'axios'
 import Full from './containers/Full/'
 // Views
 import Login from './views/Pages/Login/'
-import Register from './views/Pages/Register/'
+import Register from './views/Register/'
 import Page404 from './views/Pages/Page404/'
 import Page500 from './views/Pages/Page500/'
 
@@ -25,8 +25,14 @@ export const apiRequest = request.create({
     baseURL: 'http://localhost:8080/api/'
 });
 
-// Add a request interceptor
-apiRequest.interceptors.request.use(function (config) {
+export const apiStorageRequest = request.create({
+    baseURL: 'http://localhost:8080/api/',
+    headers: {
+        'content-type': 'multipart/form-data'
+    }
+});
+
+var interceptorSuccess = (config) => {
     let access_token = localStorage.getItem('access_token');
 
     console.log("tocken: ", access_token);
@@ -39,11 +45,17 @@ apiRequest.interceptors.request.use(function (config) {
 
     return config;
 
-}, function (error) {
+};
+
+var interceptorError = (error)=>{
     // Do something with request error
     console.log(error);
     return Promise.reject(error);
-});
+}
+
+// Add a request interceptor
+apiRequest.interceptors.request.use(interceptorSuccess, interceptorError);
+apiStorageRequest.interceptors.request.use(interceptorSuccess, interceptorError);
 
 // // Add a response interceptor
 // apiRequest.interceptors.response.use(function (response) {
@@ -83,7 +95,7 @@ ReactDOM.render((
     <BrowserRouter history={gHistory}>
         <Switch>
             <Route exact path="/login" name="Login Page" component={Login}/>
-            <AdminRoute exact path="/register" name="Register Page" component={Register}/>
+            {/*<AdminRoute exact path="/register" name="Register Page" component={Register}/>*/}
             <Route exact path="/404" name="Page 404" component={Page404}/>
             <Route exact path="/500" name="Page 500" component={Page500}/>
             <AuthRoute path="/" name="Home" component={Full}/>

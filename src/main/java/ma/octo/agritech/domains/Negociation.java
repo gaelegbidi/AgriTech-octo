@@ -1,13 +1,11 @@
 package ma.octo.agritech.domains;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "NEGOCIATIONS")
-public class Negociation  {
+public class Negociation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

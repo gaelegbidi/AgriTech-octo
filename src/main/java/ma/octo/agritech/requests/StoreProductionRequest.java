@@ -1,4 +1,4 @@
-package ma.octo.agritech.Requests;
+package ma.octo.agritech.requests;
 
 
 public class StoreProductionRequest {

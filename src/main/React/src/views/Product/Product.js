@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {apiRequest} from "../../index";
+import {apiRequest, apiStorageRequest} from "../../index";
 import update from 'react-addons-update';
 
 class Product extends Component {
@@ -10,7 +10,7 @@ class Product extends Component {
             name:'',
             ref:'',
             description:'',
-            image:''
+            image:null
         };
 
     }
@@ -24,6 +24,24 @@ class Product extends Component {
         });
     };
 
+    onImageChange = (e) => {
+        console.log(e.target.name,e.target.value);
+        console.log(e.target.name,e.target.files);
+        this.fileUpload(e.target.files[0]);
+
+    };
+    fileUpload=(file)=>{
+        const formData = new FormData();
+        formData.append('file',file);
+        apiStorageRequest.post('/storeImages',formData)
+            .then((response)=>{
+                console.log(response.data);
+                this.setState({
+                    image: response.data,
+                });
+            });
+    };
+
     productRegister = async (e) => {
         e.preventDefault();
 
@@ -33,7 +51,7 @@ class Product extends Component {
                 console.log(response);
                 setTimeout(()=>{
                     alert("product bien enregistrer")
-                    // this.props.history.push(`/`)
+                    this.props.history.push('/products');
                 },100);
             })
             .catch((error) => {
@@ -59,7 +77,7 @@ class Product extends Component {
                     <div className="card">
                         <div className="card-header">
                             <strong>Add</strong>
-                            <small>Compaign</small>
+                            <small>Product</small>
                         </div>
                         <div className="card-block">
                             <div className="form-group">
@@ -82,12 +100,11 @@ class Product extends Component {
                                        placeholder="product describe" name="description"
                                        onChange={e => this.onChange(e)}
                                        value={this.state.description}/>
-                            </div><div className="form-group">
+                            </div>
+                            <div className="form-group">
                                 <label htmlFor="street">Product Image</label>
-                                <input type="file" className="form-control" id="image"
-                                       placeholder="product iamge" name="image"
-                                       onChange={e => this.onChange(e)}
-                                       value={this.state.image}/>
+                            <input type="file" id="file-input" name="image" accept="image/*"
+                                   onChange={e => this.onImageChange(e)}/>
                             </div>
 
 

@@ -28,6 +28,7 @@ class Login extends Component {
                 apiRequest.get("/users/info").then((res) => {
                     console.log(res.data);
                     localStorage.setItem('username', res.data.username);
+                    localStorage.setItem('image', res.data.image);
                     localStorage.setItem('roles', res.data.roles.map(r=>r.ref).join('|'));
                 });
 
@@ -40,7 +41,8 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="app flex-row align-items-center">
+            <div className="app flex-row align-items-center"  style={{background: 'url(/img/login-bg.jpg) no-repeat', backgroundSize:' 100% 100%'}}>
+
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-md-8">
@@ -84,7 +86,7 @@ class Login extends Component {
                                             <h2>---</h2>
                                             <p>Voila comment nous aidons les agriculteurs avec la technologie à
                                                 octo!!!.</p>
-                                            <button type="button" className="btn btn-primary active mt-3">About Us
+                                            <button type="button" className="btn btn-primary active mt-3" onClick={()=>{window.location.href="https://agritech.github.io"}}>About Us
                                             </button>
                                         </div>
                                     </div>

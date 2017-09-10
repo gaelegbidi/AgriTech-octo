@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface NegociationRepository extends CrudRepository<Negociation, Long> {
 
-    List<Negociation> findAllByProduction(Production  production);
+    List<Negociation> findAllByProduction(Production production);
 }

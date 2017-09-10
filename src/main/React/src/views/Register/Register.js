@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {apiRequest} from "../../../index";
+import {apiRequest, apiStorageRequest} from "../../index";
 
 
 class Register extends Component {
@@ -19,7 +19,8 @@ class Register extends Component {
             function: '',
             society: '',
             roles: [],
-            roleRef:[]
+            roleRef:[],
+            image: null
         };
         this.loadAllRoles();
     }
@@ -32,6 +33,14 @@ class Register extends Component {
             [e.target.name]: e.target.value,
         });
     };
+
+    onImageChange = (e) => {
+        console.log(e.target.name,e.target.value);
+        console.log(e.target.name,e.target.files);
+        this.fileUpload(e.target.files[0]);
+
+    };
+
     onRolesChange = (e) => {
         console.log(e.target.name,e.target.value);
         console.log(document.getElementById("mySelect").length);
@@ -44,6 +53,18 @@ class Register extends Component {
         this.setState({
             [e.target.name]:selected1.join("|"),
         });
+    };
+
+    fileUpload=(file)=>{
+        const formData = new FormData();
+        formData.append('file',file);
+        apiStorageRequest.post('/storeImages',formData)
+            .then((response)=>{
+                console.log(response.data);
+                this.setState({
+                   image: response.data,
+                });
+            });
     };
 
     userRegister = async (e) => {
@@ -190,27 +211,21 @@ class Register extends Component {
                                             </select>
 
                                     </div>
+                                    <div className="form-group">
+                                        <img src={this.state.image} alt="---" className="img-responsive" width={'80%'} style={{marginLeft:'10%'}}/>
+                                    </div>
                                     <div className="form-group row">
                                         <label className="col-md-3 form-control-label" htmlFor="file-input">Profil
                                             Photo</label>
                                         <div className="col-md-9">
-                                            <input type="file" id="file-input" name="file-input"/>
+                                            <input type="file" id="file-input" name="image" accept="image/*"
+                                                   onChange={e => this.onImageChange(e)}/>
                                         </div>
                                     </div>
                                     <button type="button" className="btn btn-block btn-success"
                                             onClick={this.userRegister}>Create Account
                                     </button>
                                 </div>
-                                {/*<div className="card-footer p-4">*/}
-                                {/*<div className="row">*/}
-                                {/*<div className="col-6">*/}
-                                {/*<button className="btn btn-block btn-facebook" type="button"><span>facebook</span></button>*/}
-                                {/*</div>*/}
-                                {/*<div className="col-6">*/}
-                                {/*<button className="btn btn-block btn-twitter" type="button"><span>twitter</span></button>*/}
-                                {/*</div>*/}
-                                {/*</div>*/}
-                                {/*</div>*/}
                             </div>
                         </div>
                     </div>

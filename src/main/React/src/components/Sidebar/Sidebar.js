@@ -43,10 +43,6 @@ class Sidebar extends Component {
               <NavLink to={'/exploitation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> New Exploitation</NavLink>
             </li>): null}
 
-              {localStorage.getItem('roles')==='ROLE_ADMIN'? ( <li className={this.activeRoute("/product")}>
-              <NavLink to={'/product'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Add Product</NavLink>
-            </li>): null}
-
               {localStorage.getItem('roles')==='ROLE_ADMIN'? (<li className={this.activeRoute("/compaign")}>
               <NavLink to={'/compaign'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>Add Compaign</NavLink>
             </li>): null}
@@ -55,14 +51,15 @@ class Sidebar extends Component {
                           <NavLink to={'/consultation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>See All Productions</NavLink>
 
             </li>
+              {localStorage.getItem('roles')==='ROLE_ADMIN'?  <li className={this.activeRoute("/products")}>
+                                      <NavLink to={'/products'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>Products</NavLink>
+
+                        </li>:null}
 
               {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'? (<li className={this.activeRoute("/manageProductions")}>
                           <NavLink to={'/manageProductions'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Manage Productions</NavLink>
 
                         </li>): null}
-
-
-
           </ul>
         </nav>
       </div>

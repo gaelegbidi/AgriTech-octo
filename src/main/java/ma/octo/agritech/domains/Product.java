@@ -1,6 +1,8 @@
 package ma.octo.agritech.domains;
 
 
+import ma.octo.agritech.requests.StoreProductRequest;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,9 +20,13 @@ public class Product {
     private String name;
 
     private String description;
-    private byte[] image;
+    private String image;
+
 
     public Product() {
+    }
+
+    public Product(StoreProductRequest storeProductRequest) {
     }
 
     public Product(String name, String ref, String description) {
@@ -29,11 +35,18 @@ public class Product {
         this.description = description;
     }
 
-    public Product(String name, String ref, String description, byte[] image) {
+    public Product(String name, String ref, String description, String image) {
         this.name = name;
         this.ref = ref;
         this.description = description;
         this.image = image;
+    }
+
+    public  Product(Product product){
+        this.name=product.name;
+        this.ref=product.ref;
+        this.description=product.description;
+        this.image=product.image;
     }
 
     public Long getId() {
@@ -68,11 +81,11 @@ public class Product {
         this.description = description;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

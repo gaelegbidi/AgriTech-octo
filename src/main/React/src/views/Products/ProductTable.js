@@ -1,11 +1,11 @@
 import React,{Component} from 'react'
 import {apiRequest} from "../../index";
-import UsersTableItem from './UsersTableItem'
+import ProductTableItem from './ProductTableItem'
 import {Button, DropdownItem} from "reactstrap";
 
 
 
-class UsersTable extends React.Component{
+class ProductTable extends React.Component{
     render(){
         return(
             <div className="row">
@@ -13,16 +13,15 @@ class UsersTable extends React.Component{
                     <div className="card">
                         <div className="card-header">
                             <i className="fa fa-align-justify"></i> <span>Our Users</span>
-                            <button className="btn-info pull-right" onClick={()=>{window.location.href='/register'}}> <i className="icon-plus"></i> Add User</button>
+                            <button className="btn-info pull-right" onClick={()=>{window.location.href='/product'}}> <i className="icon-plus"></i> Add Product</button>
                         </div>
 
                         <div className="card-block">
                             <table className="table table-bordered table-striped table-sm">
                                 <thead>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>E-mail</th>
-                                    <th>Role</th>
+                                    <th>Product Reference</th>
+                                    <th>Product Name</th>
                                     <th>Status</th>
                                 </tr>
                                 </thead>
@@ -51,4 +50,4 @@ class UsersTable extends React.Component{
     }
 
 }
-export default UsersTable;
+export default ProductTable;

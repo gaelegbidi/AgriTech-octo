@@ -1,11 +1,9 @@
 package ma.octo.agritech.config;
 
-import ma.octo.agritech.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -26,11 +24,11 @@ import static ma.octo.agritech.Application.*;
 class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private  AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     @Qualifier("dataSource")
-    private  DataSource dataSource;
+    private DataSource dataSource;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
