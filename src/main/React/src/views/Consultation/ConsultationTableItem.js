@@ -66,8 +66,8 @@ class ConsultationTableItem extends React.Component {
                         <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
                                className={'modal-warning modal-lg' + this.props.className}>
                             <ModalHeader toggle={this.toggleWarning}>You can let your price After</ModalHeader>
-                            <ModalBody>
-                                <img src={this.props.production.product.image} className="img-avatar" alt="---"/><br/>
+                            <ModalBody >
+                                <img src={this.props.production.product.image} className="img-responsive" alt="---"  width={'80%'} style={{marginLeft:'10%'}}/><br/>
                                 {this.props.production.product.description}
                             </ModalBody>
                             <ModalFooter>

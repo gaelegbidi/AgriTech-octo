@@ -100,15 +100,6 @@ class Dashboard extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {/*<div className="col-sm-6">*/}
-                                                {/*<div className="callout callout-primary">*/}
-                                                    {/*<small className="text-muted">Bounce Rate</small><br/>*/}
-                                                    {/*<strong className="h4">5%</strong>*/}
-                                                    {/*<div className="chart-wrapper">*/}
-                                                        {/*<canvas id="sparkline-chart-6" width="100" height="30"></canvas>*/}
-                                                    {/*</div>*/}
-                                                {/*</div>*/}
-                                            {/*</div>*/}
                                         </div>
                                         <hr className="mt-0"/>
 
@@ -116,7 +107,9 @@ class Dashboard extends Component {
                                 </div>
                                 <br/>
 
+
                             </div>
+
                         </div>
                     </div>
                 </div>
