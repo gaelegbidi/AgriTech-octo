@@ -31,20 +31,20 @@ class Sidebar extends Component {
 
             </li>):null}
             <li className={this.activeRoute("/consultationProd")}>
-              <NavLink to={'/consultationProd'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>Production Statistics</NavLink>
+              <NavLink to={'/consultationProd'} className="nav-link" activeClassName="active"><i className="icon-star"></i>Production Statistics</NavLink>
 
             </li>
               {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'? (<li className={this.activeRoute("/submitEstimate")}>
-              <NavLink to={'/submitEstimate'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> Add Estimation</NavLink>
+              <NavLink to={'/submitEstimate'} className="nav-link" activeClassName="active"><i className="icon-plus"></i> Add Estimation</NavLink>
 
             </li> ): null}
 
               {localStorage.getItem('roles')==='ROLE_AGRICULTEUR'? ( <li className={this.activeRoute("/exploitation")}>
-              <NavLink to={'/exploitation'} className="nav-link" activeClassName="active"><i className="icon-settings"></i> New Exploitation</NavLink>
+              <NavLink to={'/exploitation'} className="nav-link" activeClassName="active"><i className="icon-plus"></i> New Exploitation</NavLink>
             </li>): null}
 
               {localStorage.getItem('roles')==='ROLE_ADMIN'? (<li className={this.activeRoute("/compaign")}>
-              <NavLink to={'/compaign'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>Add Compaign</NavLink>
+              <NavLink to={'/compaign'} className="nav-link" activeClassName="active"><i className="icon-plus"></i>Add Compaign</NavLink>
             </li>): null}
 
             <li className={this.activeRoute("/consultation")}>
@@ -52,7 +52,7 @@ class Sidebar extends Component {
 
             </li>
               {localStorage.getItem('roles')==='ROLE_ADMIN'?  <li className={this.activeRoute("/products")}>
-                                      <NavLink to={'/products'} className="nav-link" activeClassName="active"><i className="icon-settings"></i>Products</NavLink>
+                                      <NavLink to={'/products'} className="nav-link" activeClassName="active"><i className="icon-anchor"></i>Products</NavLink>
 
                         </li>:null}
 

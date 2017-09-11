@@ -24,13 +24,6 @@ class Compaign extends Component {
             [e.target.name]: e.target.value,
 
         });
-        // let explo = update(this.state ,{
-        //     exploitation:{
-        //         [e.target.name] : e.target.value
-        //     }
-        // });
-        // this.setState(explo);
-        // console.log(this.state);
     };
     onCountryChange = (e) => {
         console.log(e.target.name);

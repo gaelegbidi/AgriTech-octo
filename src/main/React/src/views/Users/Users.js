@@ -15,10 +15,6 @@ class Users extends React.Component {
         this.reloadHandler = this.reloadHandler.bind(this);
     }
 
-    // componentWillMount(){
-    //     this.loadAllUsers();
-    // }
-
     loadAllUsers() {
 
         apiRequest.headers = {};
@@ -28,7 +24,6 @@ class Users extends React.Component {
                 this.setState({users: response.data});
             })
     }
-
     reloadHandler = () => {
         this.forceUpdate();
 
